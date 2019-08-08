@@ -1,0 +1,25 @@
+﻿# Mục đích sử dụng:
+ - Đầu vào: 
+    + File CSV chứa [ Tên (Posistion) - Tọa độ x - Tọa độ y - Góc xoay (Angle) - Giá trị ] của linh kiện trên PCB dc export từ các phần mềm thiết kế mạch: Eagle, Altium.
+    + File CSV chứa thông tin Feeder
+    	++ Part: [Tên linh kiện-Loại Feeder-Số thứ tự]
+    	++ Feeder
+    		++ Loại Feeder: Tube - Tray - Feeder
+    		++ Số thứ tự (vị trí)
+    	++ PickupHight: 
+    	++ PickupSpeed:	
+    	++ PickupDelay	
+    	++ PasteHight	
+    	++ PasteSpeed	
+    	++ PasteDellay	
+    	++ Visual
+    	++ Angle_Feeder1
+    	++ Angle_Machine
+
+
+ - Đầu ra: File TXT  chứa [ Tên(Posistion) - Tọa độ x - Tọa độ y - Góc xoay - Giá trị ] của linh kiện đã qua xử lý để import vào máy SMT-Kayo
+
+# Kiến thức chuẩn bị:
+ - Table data in c#
+ - Read CSV in c#
+ - Write txt file in c#

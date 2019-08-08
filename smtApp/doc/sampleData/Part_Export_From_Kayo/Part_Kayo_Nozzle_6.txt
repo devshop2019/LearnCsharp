@@ -1,0 +1,37 @@
+No.	Part	Feeder	PickupHight	PickupSpeed	PickupDelay	PasteHight	PasteSpeed	PasteDellay	Visual
+1	Opam_LM358_F1	Feeder1	2150	7	30	1200	7	30	High Spead
+2	LED_R_0603	Feeder3	2070	7	20	1975	7	10	High Spead
+3	R_R0_0805	Feeder4	1565	8	20	1200	8	15	High Spead
+4	R_1M_0603	Feeder5	2025	8	10	1570	8	10	High Spead
+5	R_R300_0603	Feeder6	2025	8	10	1570	8	10	High Spead
+6	Tu_47uF	Feeder8	2120	7	30	1565	7	10	High Spead
+7	LED_Y_0603	Feeder10	2070	7	20	1975	7	10	High Spead
+8	R_1K_0603	Feeder11	2025	8	10	1570	8	10	High Spead
+9	R_10K_0603	Feeder12	2025	8	10	1570	8	10	High Spead
+10	C_100nF_104_0603	Feeder13	2015	7	15	1980	8	10	High Spead
+11	R_4K7_0603	Feeder14	2025	8	10	1570	8	10	High Spead
+12	C_1uF_0603	Feeder15	2015	7	15	1980	8	10	High Spead
+13	FET_FDN340	Feeder16	2125	7	15	1960	7	10	High Spead
+14	XTAL_16Mhz	Feeder17	1200	8	10	1200	8	10	High Spead
+15	AMS1117-3.3V_F19	Feeder19	2040	1	102	1920	7	25	Precise
+16	Fuse_500mA_1206	Feeder21	2115	7	15	2000	8	10	High Spead
+17	Diod_BAT54A_F22	Feeder22	1200	9	0	1200	9	0	High Spead
+18	L_4.7uH	Feeder26	2145	7	30	1675	8	10	High Spead
+19	Btn_4x4x3_F27	Feeder27	2095	3	92	1825	7	20	Precise
+20	XL1509-5_F43	Feeder43	2170	7	30	1920	7	30	High Spead
+21	CP2102_F45	Feeder45	2025	7	15	1910	7	15	Precise
+22	Tu_100uF	Feeder47	2120	1	40	1565	7	10	High Spead
+23	Diod_BAT54A_F49	Feeder49	2025	7	15	1960	7	10	High Spead
+24	DIOD_SS24	Feeder54	2090	4	20	1865	7	15	High Spead
+25	test_cap_47uF	Feeder56	1703	5	15	1200	8	10	High Spead
+26	test_diod_SS24	Tube57	2000	8	10	1200	8	10	High Spead
+27	Micro_usb	Tube58	2030	3	150	1860	4	99	Precise
+28	Mega2560	Tray1	2320	4	25	2010	4	25	Precise
+29	XL1509_5V_TRAY	Tray2	2255	7	15	1920	7	10	Precise
+30	CP2102_TRAY	Tray3	2255	7	15	2010	7	10	Precise
+31	AMS1117-3.3V_TRAY	Tray4	2225	7	25	1920	7	10	Precise
+32	Button_SMD_TRAY	Tray5	2255	7	25	1920	7	10	Precise
+33	chuan_dauHut	Tray6	2040	4	1	1200	4	1	High Spead
+34	Opam_LM358_Tray	Tray7	2255	7	15	1920	7	10	Precise
+35	Btn4x4x3_T8	Tray8	2105	5	40	1825	7	10	Precise
+36	un_use	Tray10	2045	4	1	1200	4	1	High Spead
