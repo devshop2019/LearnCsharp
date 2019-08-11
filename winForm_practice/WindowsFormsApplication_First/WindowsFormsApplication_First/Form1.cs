@@ -14,6 +14,8 @@ using System.Text.RegularExpressions;
 /*
  * OK:
  * https://support.microsoft.com/vi-vn/help/816149/how-to-read-from-and-write-to-a-text-file-by-using-visual-c
+ * https://immortalcoder.blogspot.com/2013/02/create-csv-file-from-datatable-in.html
+ * https://foxlearn.com/windows-forms/read-csv-file-in-csharp-382.html
  * 
  * 
  * https://www.youtube.com/watch?v=96kHaIUMTEk
@@ -36,54 +38,6 @@ namespace WindowsFormsApplication_First
             InitializeComponent();
         }
 
-        #region CreateCSV https://immortalcoder.blogspot.com/2013/02/create-csv-file-from-datatable-in.html
-        public void CreateCSVFile(DataTable dt, string strFilePath)
-        {
-            try
-            {
-                StreamWriter sw = new StreamWriter(strFilePath, false);
-                int columnCount = dt.Columns.Count;
-
-                for (int i = 0; i < columnCount; i++)
-                {
-                    sw.Write(dt.Columns[i]);
-
-                    if (i < columnCount - 1)
-                    {
-                        sw.Write(",");
-                    }
-                }
-
-                sw.Write(sw.NewLine);
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    for (int i = 0; i < columnCount; i++)
-                    {
-                        if (!Convert.IsDBNull(dr[i]))
-                        {
-                            sw.Write(dr[i].ToString());
-                        }
-
-                        if (i < columnCount - 1)
-                        {
-                            sw.Write(",");
-                        }
-                    }
-
-                    sw.Write(sw.NewLine);
-                }
-
-                sw.Close();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        #endregion
-
         private void button1_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "TXT|*.txt", ValidateNames = true })
@@ -94,69 +48,6 @@ namespace WindowsFormsApplication_First
                     {
                         using (var sw = new StreamWriter(sfd.FileName))
                         {
-                            #region 1. Link Youtube
-
-                            //var writer = new CsvWriter(sw);
-                            //writer.WriteHeader(typeof(Student));
-
-                            //foreach (Student s in studentBindingSource.DataSource as List<Student>)
-                            //{
-                            //    writer.WriteRecord(s);
-                            //}
-
-                            #endregion
-
-                            #region xuat csv file
-                            //try
-                            //{
-                            //    //StreamWriter sw = new StreamWriter(sw, false);
-                            //        //int columnCount = dt.Columns.Count;
-                            //    int columnCount = dataGridView1.Columns.Count;
-
-                            //    for (int i = 0; i < columnCount; i++)
-                            //    {
-                            //        sw.Write(i);
-
-                            //        if (i < columnCount - 1)
-                            //        {
-                            //            sw.Write(",");
-                            //        }
-                            //    }
-
-                            //    sw.Write(sw.NewLine);
-
-                            //    //foreach (DataRow dr in dt.Rows)
-                            //    for(int indexRow = 0; indexRow < dataGridView1.Rows.Count ; indexRow++)
-                            //    {
-                            //        for (int i = 0; i < columnCount; i++)
-                            //        {
-
-                            //            //if (!Convert.IsDBNull(dr[i]))
-                            //            //{
-
-                            //                //sw.Write(dr[i].ToString());
-
-                            //                sw.Write(dataGridView1.Rows[indexRow].Cells[i].Value);
-                            //            //}
-
-                            //            if (i < columnCount - 1)
-                            //            {
-                            //                sw.Write(",");
-                            //            }
-                            //        }
-
-                            //        sw.Write(sw.NewLine);
-                            //    }
-
-                            //    sw.Close();
-                            //}
-                            //catch (Exception ex)
-                            //{
-                            //    throw ex;
-                            //}
-
-                            #endregion
-
                             #region xuat txt file
                             //Pass the filepath and filename to the StreamWriter Constructor
                             //StreamWriter sw = new StreamWriter("C:\\Test.txt");
@@ -251,14 +142,6 @@ namespace WindowsFormsApplication_First
             {
                 if(ofd.ShowDialog() == DialogResult.OK)
                 {
-
-                    #region 1. Link youtube
-                    //var sr = new StreamReader(new FileStream(ofd.FileName, FileMode.Open));
-                    //var csv = new CsvReader(sr);
-                    //csv.Read();
-                    //studentBindingSource.DataSource = csv.GetRecord<Student>();
-                    #endregion
-
                     StreamReader sr = new StreamReader(ofd.FileName);
                     string[] headers = sr.ReadLine().Split(',');
 
@@ -289,27 +172,99 @@ namespace WindowsFormsApplication_First
             }
         }
 
+        public void CreateCSVFile(DataTable dt, string strFilePath)
+        {
+            try
+            {
+                StreamWriter sw = new StreamWriter(strFilePath, false);
+                int columnCount = dt.Columns.Count;
 
-        //public static DataTable ConvertCSVtoDataTable(string strFilePath)
-        //{
-        //    StreamReader sr = new StreamReader(strFilePath);
-        //    string[] headers = sr.ReadLine().Split(',');
-        //    DataTable dt = new DataTable();
-        //    foreach (string header in headers)
-        //    {
-        //        dt.Columns.Add(header);
-        //    }
-        //    while (!sr.EndOfStream)
-        //    {
-        //        string[] rows = Regex.Split(sr.ReadLine(), ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-        //        DataRow dr = dt.NewRow();
-        //        for (int i = 0; i < headers.Length; i++)
-        //        {
-        //            dr[i] = rows[i];
-        //        }
-        //        dt.Rows.Add(dr);
-        //    }
-        //    return dt;
-        //}
+                for (int i = 0; i < columnCount; i++)
+                {
+                    sw.Write(dt.Columns[i]);
+
+                    if (i < columnCount - 1)
+                    {
+                        sw.Write(",");
+                    }
+                }
+
+                //sw.Write(sw.NewLine);
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    for (int i = 0; i < columnCount; i++)
+                    {
+                        if (!Convert.IsDBNull(dr[i]))
+                        {
+                            sw.Write(dr[i].ToString());
+                        }
+
+                        if (i < columnCount - 1)
+                        {
+                            sw.Write(",");
+                        }
+                    }
+
+                    //sw.Write(sw.NewLine);
+                }
+
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public DataTable ReadCsvFile(string file)
+        {
+            DataTable dt = new DataTable();
+            using (StreamReader streamReader = new StreamReader(file))
+            {
+                while (!streamReader.EndOfStream)
+                {
+                    string text = streamReader.ReadToEnd();
+                    string[] rows = text.Split('\n');
+                    if (rows.Length > 0)
+                    {
+                        //Add columns
+                        string[] columns = rows[0].Split(',');
+                        for (int j = 0; j < columns.Count(); j++)
+                            dt.Columns.Add(columns[j]);
+                        //Add rows
+                        for (int i = 1; i < rows.Count() - 1; i++)
+                        {
+                            string[] data = rows[i].Split(',');
+                            DataRow dr = dt.NewRow();
+                            for (int k = 0; k < data.Count(); k++)
+                                dr[k] = data[k];
+                            dt.Rows.Add(dr);
+                        }
+                    }
+                }
+            }
+            return dt;
+        }
+
+        private void btn_ReadPartCsv_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "CSV file|*.csv" })
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    dataGridView2.DataSource = ReadCsvFile(ofd.FileName);
+                }
+            }
+        }
+
+        private void btn_writeCsvPart_Click(object sender, EventArgs e)
+        {
+            
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "TXT|*.txt", ValidateNames = true })
+            {
+                CreateCSVFile((DataTable)dataGridView2.DataSource, "I://ConvertedFile.csv");
+            }
+        }
     }
 }
