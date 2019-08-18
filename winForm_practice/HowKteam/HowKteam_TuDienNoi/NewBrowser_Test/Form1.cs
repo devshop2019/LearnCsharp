@@ -140,30 +140,49 @@ namespace NewBrowser_Test
             #endregion
 
             #region Y tuong 4
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("function tempFunction() {");
-            sb.AppendLine("     // create a JS object");
-            sb.AppendLine("     var person = document.getElementById(\"content_arduino\").innerHTML;");
-            sb.AppendLine("");
-            sb.AppendLine("     // Important: convert object to string before returning to C#");
-            sb.AppendLine("     return person;");
-            sb.AppendLine("}");
-            sb.AppendLine("tempFunction();");
+            //StringBuilder sb = new StringBuilder();
+            //sb.AppendLine("function tempFunction() {");
+            //sb.AppendLine("     // create a JS object");
+            //sb.AppendLine("     var person = document.getElementById(\"content_arduino\").innerHTML;");
+            //sb.AppendLine("");
+            //sb.AppendLine("     // Important: convert object to string before returning to C#");
+            //sb.AppendLine("     return person;");
+            //sb.AppendLine("}");
+            //sb.AppendLine("tempFunction();");
 
-            var task = Browser.EvaluateScriptAsync(sb.ToString());
+            //var task = Browser.EvaluateScriptAsync(sb.ToString());
 
-            task.ContinueWith(t =>
+            //task.ContinueWith(t =>
+            //{
+            //    if (!t.IsFaulted)
+            //    {
+            //        var response = t.Result;
+
+            //        if (response.Success == true)
+            //        {
+            //            MessageBox.Show(response.Result.ToString());
+            //        }
+            //    }
+            //}, TaskScheduler.FromCurrentSynchronizationContext());
+
+            #endregion
+
+            #region Y tuong 5  -> chạy ok
+           
+            string script = string.Format("Blockly.Arduino.workspaceToCode();");
+
+            
+            Browser.EvaluateScriptAsync(script).ContinueWith(x =>
             {
-                if (!t.IsFaulted)
-                {
-                    var response = t.Result;
+                var response = x.Result;
 
-                    if (response.Success == true)
-                    {
-                        MessageBox.Show(response.Result.ToString());
-                    }
+                if (response.Success && response.Result != null)
+                {
+                    var startDate = response.Result;
+                    MessageBox.Show(startDate.ToString(), "Arduino");
+                    //startDate is the value of a HTML element.
                 }
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            });
 
             #endregion
 
