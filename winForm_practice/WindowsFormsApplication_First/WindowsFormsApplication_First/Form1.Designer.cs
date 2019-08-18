@@ -30,17 +30,22 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ComBobox_partName = new System.Windows.Forms.ToolStripComboBox();
+            this.btn_selectSameName = new System.Windows.Forms.ToolStripMenuItem();
+            //this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.btn_ReadPartCsv = new System.Windows.Forms.Button();
             this.btn_writeCsvPart = new System.Windows.Forms.Button();
+            this.btn_ReadPartCsv = new System.Windows.Forms.Button();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
+            //((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -50,10 +55,32 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Location = new System.Drawing.Point(3, 6);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(880, 233);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ComBobox_partName,
+            this.btn_selectSameName});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 75);
+            // 
+            // ComBobox_partName
+            // 
+            this.ComBobox_partName.Name = "ComBobox_partName";
+            this.ComBobox_partName.Size = new System.Drawing.Size(121, 23);
+            // 
+            // btn_selectSameName
+            // 
+            this.btn_selectSameName.Name = "btn_selectSameName";
+            this.btn_selectSameName.Size = new System.Drawing.Size(181, 22);
+            this.btn_selectSameName.Text = "Select same name";
+            this.btn_selectSameName.Click += new System.EventHandler(this.btn_selectSameName_Click);
             // 
             // button1
             // 
@@ -79,6 +106,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(22, 42);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -95,7 +123,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(889, 287);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Import file tọa độ";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -108,26 +136,8 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(889, 287);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Import file Part";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 6);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(877, 200);
-            this.dataGridView2.TabIndex = 1;
-            // 
-            // btn_ReadPartCsv
-            // 
-            this.btn_ReadPartCsv.Location = new System.Drawing.Point(377, 232);
-            this.btn_ReadPartCsv.Name = "btn_ReadPartCsv";
-            this.btn_ReadPartCsv.Size = new System.Drawing.Size(75, 23);
-            this.btn_ReadPartCsv.TabIndex = 4;
-            this.btn_ReadPartCsv.Text = "Read";
-            this.btn_ReadPartCsv.UseVisualStyleBackColor = true;
-            this.btn_ReadPartCsv.Click += new System.EventHandler(this.btn_ReadPartCsv_Click);
             // 
             // btn_writeCsvPart
             // 
@@ -139,6 +149,38 @@
             this.btn_writeCsvPart.UseVisualStyleBackColor = true;
             this.btn_writeCsvPart.Click += new System.EventHandler(this.btn_writeCsvPart_Click);
             // 
+            // btn_ReadPartCsv
+            // 
+            this.btn_ReadPartCsv.Location = new System.Drawing.Point(377, 232);
+            this.btn_ReadPartCsv.Name = "btn_ReadPartCsv";
+            this.btn_ReadPartCsv.Size = new System.Drawing.Size(75, 23);
+            this.btn_ReadPartCsv.TabIndex = 4;
+            this.btn_ReadPartCsv.Text = "Read";
+            this.btn_ReadPartCsv.UseVisualStyleBackColor = true;
+            this.btn_ReadPartCsv.Click += new System.EventHandler(this.btn_ReadPartCsv_Click);
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(877, 200);
+            this.dataGridView2.TabIndex = 1;
+            this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
+            this.dataGridView2.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView2_RowsAdded);
+            this.dataGridView2.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView2_UserAddedRow);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(889, 287);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Export TXT";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,7 +191,8 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
+            //((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -163,17 +206,21 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn studentIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn studentNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn studentEmailDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn studentPhoneDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource studentBindingSource;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn studentIDDataGridViewTextBoxColumn;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn studentNameDataGridViewTextBoxColumn;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn studentEmailDataGridViewTextBoxColumn;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn studentPhoneDataGridViewTextBoxColumn;
+        //private System.Windows.Forms.BindingSource studentBindingSource;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button btn_ReadPartCsv;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button btn_writeCsvPart;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripComboBox ComBobox_partName;
+        private System.Windows.Forms.ToolStripMenuItem btn_selectSameName;
     }
 }
 

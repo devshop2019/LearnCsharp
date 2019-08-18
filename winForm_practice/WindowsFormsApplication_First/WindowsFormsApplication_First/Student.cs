@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication_First
 {
-    public class Student
+    public class Student1
     {
         public string StudentID { get; set; }
 

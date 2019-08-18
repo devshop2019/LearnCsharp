@@ -132,7 +132,7 @@ namespace WindowsFormsApplication_First
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            studentBindingSource.DataSource = new List<Student>();
+            //studentBindingSource.DataSource = new List<Student1>();
         }
 
         // Btn Read CSV to DataGrid
@@ -217,6 +217,56 @@ namespace WindowsFormsApplication_First
             }
         }
 
+        public void CreateCSVFile2(ref DataGridView dt, string strFilePath)
+        {
+            try
+            {
+                StreamWriter sw = new StreamWriter(strFilePath, false);
+                int columnCount = dt.ColumnCount;
+                //int columnCount = dt.Columns.Count;
+                Console.WriteLine("Row count: {0}, Column count: {1}", dt.RowCount, dt.ColumnCount);
+
+                for (int i = 0; i < columnCount; i++)
+                {
+                    sw.Write(dt.Columns[i].HeaderText);
+
+                    if (i < columnCount - 1)
+                    {
+                        sw.Write(",");
+                    }
+                }
+
+                //sw.Write(sw.NewLine);
+
+                /*dt.Rows[1].Cells[2].Value*/;
+
+                for (int index = 0; index <dt.RowCount; index++)
+                {
+                    for (int i = 0; i < columnCount; i++)
+                    {
+                        if (dt.Rows[index].Cells[i].Value != null)
+                        {
+                            sw.Write(dt.Rows[index].Cells[i].Value.ToString());
+                        }
+
+                        if (i < columnCount - 1)
+                        {
+                            sw.Write(",");
+                            //Console.WriteLine("Row count: {0}, Column count: {1} data: {2}", dt.RowCount, dt.ColumnCount, dt.Rows[index].Cells[i].Value.ToString());
+                        }
+                    }
+
+                    sw.Write(sw.NewLine);
+                }
+
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public DataTable ReadCsvFile(string file)
         {
             DataTable dt = new DataTable();
@@ -261,10 +311,54 @@ namespace WindowsFormsApplication_First
         private void btn_writeCsvPart_Click(object sender, EventArgs e)
         {
             
-            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "TXT|*.txt", ValidateNames = true })
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "CSV|*.csv|TXT|*.txt", ValidateNames = true })
             {
-                CreateCSVFile((DataTable)dataGridView2.DataSource, "I://ConvertedFile.csv");
+                if(sfd.ShowDialog() == DialogResult.OK)
+                {
+                    //CreateCSVFile((DataTable)dataGridView2.DataSource, sfd.FileName);
+                    //CreateCSVFile((DataTable)dataGridView2.DataSource, "I://ConvertedFile.csv");
+
+                    CreateCSVFile2(ref dataGridView2, sfd.FileName);
+                    MessageBox.Show("Đã lưu Csv 2", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                
             }
+        }
+
+        private void dataGridView2_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            Console.WriteLine("Row added: count {0}, index: {1}", e.RowCount,e.RowIndex);
+
+            int count_ = dataGridView2.RowCount;
+
+            DataTable mydt = (DataTable)dataGridView2.DataSource;
+
+            //MessageBox.Show("count " + Convert.ToString(count_) + "uu " + Convert.ToString(mydt.Rows.Count), "Thông báo add", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void dataGridView2_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            //MessageBox.Show("dataGridView2_UserAddedRow", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                string dataStr = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                Console.WriteLine("Row:{0} Col: {1}, data: {2}", e.RowIndex, e.ColumnIndex, dataStr);
+            }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btn_selectSameName_Click(object sender, EventArgs e)
+        {
+            bool isSelect = dataGridView1.Rows[1].Cells[1].Selected;
+
         }
     }
 }
