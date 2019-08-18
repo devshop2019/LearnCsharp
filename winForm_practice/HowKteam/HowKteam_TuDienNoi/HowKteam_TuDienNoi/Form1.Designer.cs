@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.cb_Word = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.txb_Meaning = new System.Windows.Forms.TextBox();
-            this.txb_explaning = new System.Windows.Forms.TextBox();
             this.btn_Word = new System.Windows.Forms.Button();
-            this.btn_Meaning = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
+            this.btn_Meaning = new System.Windows.Forms.Button();
+            this.txb_explaning = new System.Windows.Forms.TextBox();
+            this.txb_Meaning = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +60,17 @@
             this.panel1.Size = new System.Drawing.Size(174, 341);
             this.panel1.TabIndex = 1;
             // 
+            // btn_Word
+            // 
+            this.btn_Word.BackgroundImage = global::HowKteam_TuDienNoi.Properties.Resources.Desert;
+            this.btn_Word.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_Word.Location = new System.Drawing.Point(147, 3);
+            this.btn_Word.Name = "btn_Word";
+            this.btn_Word.Size = new System.Drawing.Size(23, 23);
+            this.btn_Word.TabIndex = 1;
+            this.btn_Word.UseVisualStyleBackColor = true;
+            this.btn_Word.Click += new System.EventHandler(this.btn_Word_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.button3);
@@ -70,41 +81,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(504, 341);
             this.panel2.TabIndex = 2;
-            // 
-            // txb_Meaning
-            // 
-            this.txb_Meaning.Location = new System.Drawing.Point(4, 3);
-            this.txb_Meaning.Name = "txb_Meaning";
-            this.txb_Meaning.Size = new System.Drawing.Size(473, 20);
-            this.txb_Meaning.TabIndex = 0;
-            // 
-            // txb_explaning
-            // 
-            this.txb_explaning.Location = new System.Drawing.Point(4, 29);
-            this.txb_explaning.Multiline = true;
-            this.txb_explaning.Name = "txb_explaning";
-            this.txb_explaning.Size = new System.Drawing.Size(473, 309);
-            this.txb_explaning.TabIndex = 1;
-            // 
-            // btn_Word
-            // 
-            this.btn_Word.BackgroundImage = global::HowKteam_TuDienNoi.Properties.Resources.Desert;
-            this.btn_Word.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_Word.Location = new System.Drawing.Point(147, 3);
-            this.btn_Word.Name = "btn_Word";
-            this.btn_Word.Size = new System.Drawing.Size(23, 23);
-            this.btn_Word.TabIndex = 1;
-            this.btn_Word.UseVisualStyleBackColor = true;
-            // 
-            // btn_Meaning
-            // 
-            this.btn_Meaning.BackgroundImage = global::HowKteam_TuDienNoi.Properties.Resources.Desert;
-            this.btn_Meaning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_Meaning.Location = new System.Drawing.Point(481, 1);
-            this.btn_Meaning.Name = "btn_Meaning";
-            this.btn_Meaning.Size = new System.Drawing.Size(23, 23);
-            this.btn_Meaning.TabIndex = 2;
-            this.btn_Meaning.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
@@ -117,6 +93,31 @@
             this.button3.TabIndex = 3;
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // btn_Meaning
+            // 
+            this.btn_Meaning.BackgroundImage = global::HowKteam_TuDienNoi.Properties.Resources.Desert;
+            this.btn_Meaning.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_Meaning.Location = new System.Drawing.Point(481, 1);
+            this.btn_Meaning.Name = "btn_Meaning";
+            this.btn_Meaning.Size = new System.Drawing.Size(23, 23);
+            this.btn_Meaning.TabIndex = 2;
+            this.btn_Meaning.UseVisualStyleBackColor = true;
+            // 
+            // txb_explaning
+            // 
+            this.txb_explaning.Location = new System.Drawing.Point(4, 29);
+            this.txb_explaning.Multiline = true;
+            this.txb_explaning.Name = "txb_explaning";
+            this.txb_explaning.Size = new System.Drawing.Size(473, 309);
+            this.txb_explaning.TabIndex = 1;
+            // 
+            // txb_Meaning
+            // 
+            this.txb_Meaning.Location = new System.Drawing.Point(4, 3);
+            this.txb_Meaning.Name = "txb_Meaning";
+            this.txb_Meaning.Size = new System.Drawing.Size(473, 20);
+            this.txb_Meaning.TabIndex = 0;
             // 
             // Form1
             // 
