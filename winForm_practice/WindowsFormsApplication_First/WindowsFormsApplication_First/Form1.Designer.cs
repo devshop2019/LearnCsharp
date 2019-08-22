@@ -33,7 +33,6 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ComBobox_partName = new System.Windows.Forms.ToolStripComboBox();
             this.btn_selectSameName = new System.Windows.Forms.ToolStripMenuItem();
-            //this.studentBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -43,9 +42,9 @@
             this.btn_ReadPartCsv = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.cb_Part = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
-            //((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -68,7 +67,7 @@
             this.ComBobox_partName,
             this.btn_selectSameName});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 75);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 53);
             // 
             // ComBobox_partName
             // 
@@ -115,6 +114,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cb_Part);
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
@@ -181,6 +181,14 @@
             this.tabPage3.Text = "Export TXT";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // cb_Part
+            // 
+            this.cb_Part.FormattingEnabled = true;
+            this.cb_Part.Location = new System.Drawing.Point(420, 258);
+            this.cb_Part.Name = "cb_Part";
+            this.cb_Part.Size = new System.Drawing.Size(121, 21);
+            this.cb_Part.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -192,7 +200,6 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
-            //((System.ComponentModel.ISupportInitialize)(this.studentBindingSource)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -221,6 +228,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripComboBox ComBobox_partName;
         private System.Windows.Forms.ToolStripMenuItem btn_selectSameName;
+        private System.Windows.Forms.ComboBox cb_Part;
     }
 }
 

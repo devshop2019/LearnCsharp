@@ -33,9 +33,16 @@ namespace WindowsFormsApplication_First
 {
     public partial class Form1 : Form
     {
+        public LinhKienManager LKManager { get; set; }
         public Form1()
         {
             InitializeComponent();
+
+            LKManager = new LinhKienManager();
+            dataGridView1.DataSource = LKManager.LKListImport.BindingSourceLK;
+            dataGridView2.DataSource = LKManager.PartListImport.BindingSourcePart;
+            cb_Part.DataSource = LKManager.PartListImport.BindingSourcePart;
+            cb_Part.DisplayMember = "Part";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -135,41 +142,50 @@ namespace WindowsFormsApplication_First
             //studentBindingSource.DataSource = new List<Student1>();
         }
 
-        // Btn Read CSV to DataGrid
+        
         private void button2_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "CSV|*.csv", ValidateNames = true})
+            #region   Btn Read CSV to DataGrid
+            //using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
+            //{
+            //    if (ofd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        StreamReader sr = new StreamReader(ofd.FileName);
+            //        string[] headers = sr.ReadLine().Split(',');
+
+            //        DataTable dt = new DataTable();
+
+            //        foreach (string header in headers)
+            //        {
+            //            //dt.Columns.Add(header);
+            //            dataGridView1.Columns.Add("abc1", header);
+
+            //        }
+            //        while (!sr.EndOfStream)
+            //        {
+            //            string[] rows = Regex.Split(sr.ReadLine(), ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+            //            int indexRow = dataGridView1.Rows.Add();
+
+            //            for (int i = 0; i < headers.Length; i++)
+            //            {
+            //                //https://www.youtube.com/watch?v=WVLL1xa6Ryo
+            //                dataGridView1.Rows[indexRow].Cells[i].Value = rows[i];
+            //            }
+            //        }
+            //    }
+            //}
+            #endregion
+
+            #region Read CSV LinhKien
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
             {
-                if(ofd.ShowDialog() == DialogResult.OK)
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    StreamReader sr = new StreamReader(ofd.FileName);
-                    string[] headers = sr.ReadLine().Split(',');
-
-                    DataTable dt = new DataTable();
-                    
-                    foreach (string header in headers)
-                    {
-                        //dt.Columns.Add(header);
-                        dataGridView1.Columns.Add("abc1",header);
-
-                    }
-                    while (!sr.EndOfStream)
-                    {
-                        string[] rows = Regex.Split(sr.ReadLine(), ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-
-                        int indexRow = dataGridView1.Rows.Add();
-
-                        for (int i = 0; i < headers.Length; i++)
-                        {
-                            //https://www.youtube.com/watch?v=WVLL1xa6Ryo
-                            dataGridView1.Rows[indexRow].Cells[i].Value = rows[i];
-                        }
-
-                    }
-
-
+                    LKManager.ReadCsvFileToLinhKien(ofd.FileName);
                 }
             }
+            #endregion
         }
 
         public void CreateCSVFile(DataTable dt, string strFilePath)
@@ -217,7 +233,7 @@ namespace WindowsFormsApplication_First
             }
         }
 
-        public void CreateCSVFile2(ref DataGridView dt, string strFilePath)
+        public void CreateCSVFile2(DataGridView dt, string strFilePath)
         {
             try
             {
@@ -303,7 +319,8 @@ namespace WindowsFormsApplication_First
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    dataGridView2.DataSource = ReadCsvFile(ofd.FileName);
+                    //dataGridView2.DataSource = ReadCsvFile(ofd.FileName);
+                    LKManager.ReadCsvFileToPart(ofd.FileName);
                 }
             }
         }
@@ -318,7 +335,7 @@ namespace WindowsFormsApplication_First
                     //CreateCSVFile((DataTable)dataGridView2.DataSource, sfd.FileName);
                     //CreateCSVFile((DataTable)dataGridView2.DataSource, "I://ConvertedFile.csv");
 
-                    CreateCSVFile2(ref dataGridView2, sfd.FileName);
+                    CreateCSVFile2(dataGridView2, sfd.FileName);
                     MessageBox.Show("Đã lưu Csv 2", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 
@@ -331,7 +348,7 @@ namespace WindowsFormsApplication_First
 
             int count_ = dataGridView2.RowCount;
 
-            DataTable mydt = (DataTable)dataGridView2.DataSource;
+            //DataTable mydt = (DataTable)dataGridView2.DataSource;
 
             //MessageBox.Show("count " + Convert.ToString(count_) + "uu " + Convert.ToString(mydt.Rows.Count), "Thông báo add", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
