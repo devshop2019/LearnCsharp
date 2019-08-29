@@ -34,6 +34,8 @@ namespace WindowsFormsApplication_First
     public partial class Form1 : Form
     {
         public LinhKienManager LKManager { get; set; }
+        public int testValue { get; set; }
+
         public Form1()
         {
             InitializeComponent();
@@ -43,63 +45,119 @@ namespace WindowsFormsApplication_First
             dataGridView2.DataSource = LKManager.PartListImport.BindingSourcePart;
             cb_Part.DataSource = LKManager.PartListImport.BindingSourcePart;
             cb_Part.DisplayMember = "Part";
+            #region chua chay dc
+            //ComBobox_partName.ComboBox.DataSource = LKManager.PartListImport.BindingSourcePart;
+            #endregion
+
+            setupContextMenu();
+
+            //string testTT = "123\r\rgg\r\n";
+            //string test2 = testTT.Remove(testTT.IndexOf('\r'));
+            //string test3 = test2;
+        }
+
+        public void setupContextMenu ()
+        {
+            //ComBobox_partName.Width = 400;
+            contextMenuStrip1.Width = 900;
+            var itemTem = new ToolStripButton() { Text = "Change LK", AutoSize = true};
+            itemTem.Click += btnContext_Edit_LK_Click;
+            contextMenuStrip1.Items.Add(itemTem);
+
+            var btn_deleteRow = new ToolStripButton() { Text = "Change LK", AutoSize = true };
+            btn_deleteRow.Click += DeleteRowLK;
+            contextMenuStrip1.Items.Add(btn_deleteRow);
+        }
+
+        private void DeleteRowLK(object sender, EventArgs e)
+        {
+            LKManager.LKListImport.BindingSourceLK.RemoveCurrent();
+        }
+
+        private void btnContext_Edit_LK_Click(object sender, EventArgs e)
+        {
+            cb_Part.SelectedIndex = ComBobox_partName.SelectedIndex;
+            LKManager.EditLinhKien();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "TXT|*.txt", ValidateNames = true })
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "TXT|*.txt|CSV|*.csv", ValidateNames = true })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
+                    #region Get Extension file
+                    // https://stackoverflow.com/questions/4990910/how-to-get-file-extension-from-save-file-dialog
+                    var extension = Path.GetExtension(sfd.FileName);
+
+                    switch (extension.ToLower())
+                    {
+                        case ".txt":
+                            // ToDo: Save as JPEG
+                            break;
+                        case ".csv":
+                            // ToDo: Save as PNG
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(extension);
+                    }
+                    #endregion
+
                     try
                     {
-                        using (var sw = new StreamWriter(sfd.FileName))
-                        {
-                            #region xuat txt file
-                            //Pass the filepath and filename to the StreamWriter Constructor
-                            //StreamWriter sw = new StreamWriter("C:\\Test.txt");
+                        #region Save to TXT
+                        //using (var sw = new StreamWriter(sfd.FileName))
+                        //{
+                        //    #region xuat txt file
+                        //    //Pass the filepath and filename to the StreamWriter Constructor
+                        //    //StreamWriter sw = new StreamWriter("C:\\Test.txt");
 
-                            ////Write a line of text
-                            //sw.WriteLine("Hello World!!");
+                        //    ////Write a line of text
+                        //    //sw.WriteLine("Hello World!!");
 
-                            ////Write a second line of text
-                            //sw.WriteLine("From the StreamWriter class");
+                        //    ////Write a second line of text
+                        //    //sw.WriteLine("From the StreamWriter class");
 
-                            int columnCount = dataGridView1.Columns.Count;
+                        //    int columnCount = dataGridView1.Columns.Count;
 
-                            for (int i = 0; i < columnCount; i++)
-                            {
-                                
-                                string kk = dataGridView1.Columns[i].HeaderText;
-                                sw.Write(kk);
+                        //    for (int i = 0; i < columnCount; i++)
+                        //    {
 
-                                if (i < columnCount - 1)
-                                {
-                                    sw.Write("\t");
-                                }
-                            }
+                        //        string kk = dataGridView1.Columns[i].HeaderText;
+                        //        sw.Write(kk);
 
-                            sw.Write(sw.NewLine);
-                            
-                            for (int indexRow = 0; indexRow < dataGridView1.Rows.Count; indexRow++)
-                            {
-                                for (int i = 0; i < columnCount; i++)
-                                {
-                                    sw.Write(dataGridView1.Rows[indexRow].Cells[i].Value);
+                        //        if (i < columnCount - 1)
+                        //        {
+                        //            sw.Write("\t");
+                        //        }
+                        //    }
 
-                                    if (i < columnCount - 1)
-                                    {
-                                        sw.Write("\t");
-                                    }
-                                }
+                        //    sw.Write(sw.NewLine);
 
-                                sw.Write(sw.NewLine);
-                            }
+                        //    for (int indexRow = 0; indexRow < dataGridView1.Rows.Count; indexRow++)
+                        //    {
+                        //        for (int i = 0; i < columnCount; i++)
+                        //        {
+                        //            sw.Write(dataGridView1.Rows[indexRow].Cells[i].Value);
 
-                            //Close the file
-                            sw.Close();
-                            #endregion
-                        }
+                        //            if (i < columnCount - 1)
+                        //            {
+                        //                sw.Write("\t");
+                        //            }
+                        //        }
+
+                        //        sw.Write(sw.NewLine);
+                        //    }
+
+                        //    //Close the file
+                        //    sw.Close();
+                        //    #endregion
+                        //}
+                        #endregion
+
+                        //LKManager.WriteDataGridToTxt(dataGridView1,sfd.FileName);
+                        LKManager.WriteLinhKienItemToTxt(LKManager.LKListImport,sfd.FileName);
                     }
                     catch (Exception e44)
                     {
@@ -351,20 +409,29 @@ namespace WindowsFormsApplication_First
             //DataTable mydt = (DataTable)dataGridView2.DataSource;
 
             //MessageBox.Show("count " + Convert.ToString(count_) + "uu " + Convert.ToString(mydt.Rows.Count), "Thông báo add", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            ComBobox_partName.Items.Clear();
+
+            foreach (PartData pd in LKManager.PartListImport.BindingSourcePart)
+            {
+                ComBobox_partName.Items.Add(pd.Part);
+            }
         }
 
         private void dataGridView2_UserAddedRow(object sender, DataGridViewRowEventArgs e)
         {
-            //MessageBox.Show("dataGridView2_UserAddedRow", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("dataGridView2_UserAddedRow", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
         }
 
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-            {
-                string dataStr = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                Console.WriteLine("Row:{0} Col: {1}, data: {2}", e.RowIndex, e.ColumnIndex, dataStr);
-            }
+            //if (dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            //{
+            //    string dataStr = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                //Console.WriteLine("Row:{0} Col: {1}, data: {2}", e.RowIndex, e.ColumnIndex, dataStr);
+                Constant_LK.debug("Row:{0} Col: {1} dataGridView2 double click", e.RowIndex, e.ColumnIndex);
+            //}
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -376,6 +443,21 @@ namespace WindowsFormsApplication_First
         {
             bool isSelect = dataGridView1.Rows[1].Cells[1].Selected;
 
+        }
+
+        private void btn_Edit_LK_Click(object sender, EventArgs e)
+        {
+            LKManager.EditLinhKien();
+        }
+
+        private void btnUpdatePart_Click(object sender, EventArgs e)
+        {
+            LKManager.EditPart();
+        }
+
+        private void dataGridView2_DataMemberChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

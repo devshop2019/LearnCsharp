@@ -26,6 +26,10 @@ namespace WindowsFormsApplication_First
         public static string PasteDelay = "PasteDelay";
         public static string Visual = "Visual";
         public static string DeltaAngleAtFeeder1 = "DeltaAngleAtFeeder1";
+        public static void debug(String format, params object[] args)
+        {
+            Console.WriteLine(format, args);
+        }
 
     }
 }
