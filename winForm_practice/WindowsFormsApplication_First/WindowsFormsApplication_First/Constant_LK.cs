@@ -11,9 +11,10 @@ namespace WindowsFormsApplication_First
         public static string Posistion = "Designator";
         public static string MidX = "Mid X";
         public static string MidY = "Mid Y";
-        public static string AngelNew = "New Angel";
+        public static string AngelNew = "New_Angel";
         public static string AngelOld = "Rotation";
         public static string Value = "Comment";
+        public static string ValueOld = "ValueOld";
         public static string FootPrint = "Footprint";
 
         public static string Part = "Part";

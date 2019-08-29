@@ -51,16 +51,31 @@ namespace WindowsFormsApplication_First
             //Sửa thuộc tính của dòng đang chọn
             //((Class1)class1BindingSource.Current).ThuocTinh2 = "sửa";
             string temNamePart = ((PartData)PartListImport.BindingSourcePart.Current).Part;
-            string temNameLinhKien = ((LinhKienData)LKListImport.BindingSourceLK.Current).FootPrint;
+            string temNameLinhKien = ((LinhKienData)LKListImport.BindingSourceLK.Current).ValueOld;
 
             int temDeltaAngle = Convert.ToInt32(((PartData)PartListImport.BindingSourcePart.Current).DeltaAngleAtFeeder1);
+            string strFeederid = ((PartData)PartListImport.BindingSourcePart.Current).Feeder;
+            int temFeederID = strFeederid!=""?Convert.ToInt32(strFeederid) :0;
+            int temSideFeeder1ID_MaX = 26;
 
             foreach (LinhKienData temLK in LKListImport.BindingSourceLK)
             {
-                if (temLK.FootPrint == temNameLinhKien)
+                if (temLK.ValueOld == temNameLinhKien)
                 {
                     temLK.Value = temNamePart;
                     temLK.AngelNew = (Convert.ToInt32(temLK.AngelOld) + temDeltaAngle).ToString();
+
+                    //int angle = Convert.ToInt32(temLK.AngelOld) + temDeltaAngle;
+                    int angle = temDeltaAngle - Convert.ToInt32(temLK.AngelOld);
+
+                    if (temFeederID > temSideFeeder1ID_MaX)
+                    {
+                        angle = 180 + angle;
+                    }
+
+                    if (angle > 180) angle = angle - 360;
+
+                    temLK.AngelNew = angle.ToString();
                 }
             }
                 
@@ -73,12 +88,26 @@ namespace WindowsFormsApplication_First
             {
                 string temNameLinhKien = temPart.Part;
                 int temDeltaAngle = Convert.ToInt32(temPart.DeltaAngleAtFeeder1);
+                int temFeederID = temPart.Feeder != ""?Convert.ToInt32(temPart.Feeder):0;
+                int temSideFeeder1ID_MaX = 26;
 
                 foreach (LinhKienData temLK in LKListImport.BindingSourceLK)
                 {
                     if (temLK.Value == temNameLinhKien)
                     {
-                        temLK.AngelNew = (Convert.ToInt32(temLK.AngelOld) + temDeltaAngle).ToString();
+                        //int angle = Convert.ToInt32(temLK.AngelOld) + temDeltaAngle;
+
+                        int angle = temDeltaAngle - Convert.ToInt32(temLK.AngelOld);
+
+                        if (temFeederID > temSideFeeder1ID_MaX)
+                        {
+                            angle = 180 + angle;
+                        }
+
+                        if (angle > 180) angle = angle - 360;
+
+                        
+                        temLK.AngelNew = angle.ToString();
                     }
                 }
             }
@@ -148,62 +177,55 @@ namespace WindowsFormsApplication_First
             using (var sw = new StreamWriter(strFilePath))
             {
                 #region xuat txt file chuẩn Kayo
-                //int columnCount = dt.Columns.Count;
+                LinhKienData temLK1 = new LinhKienData();
 
-                //for (int i = 0; i < columnCount; i++)
-                //{
+                sw.Write(temLK1.GetHeaderStringTo_TXT());
 
-                //    string kk = dt.Columns[i].HeaderText;
-                //    sw.Write(kk);
+                foreach (LinhKienData temLK in LKListImport.BindingSourceLK)
+                {
+                    sw.Write(temLK.GetStringTo_TXT());
 
-                //    if (i < columnCount - 1)
-                //    {
-                //        sw.Write(" ");
-                //    }
-                //}
+                }
+                sw.Close();
+                #endregion
+            }
+        }
+
+        public void WriteLinhKienItemToCsv(LinhKienItem dt, string strFilePath)
+        {
+            using (var sw = new StreamWriter(strFilePath))
+            {
+                #region xuat csv file
+                
                 LinhKienData temLK1 = new LinhKienData();
 
                 sw.Write(temLK1.GetHeaderStringTo_Csv());
 
-                //sw.Write(temLK1.GetHeaderString(","));
-
-                //sw.Write(temLK1.GetHeaderString());
-                //sw.Write(sw.NewLine);
-
                 foreach (LinhKienData temLK in LKListImport.BindingSourceLK)
                 {
                     sw.Write(temLK.GetStringTo_CSV());
-
-                    //sw.Write(temLK.GetString(","));
-
-                    //sw.Write(temLK.GetString());
-                    //sw.Write(sw.NewLine);
                 }
 
-                //for (int indexRow = 0; indexRow < dt.Rows.Count; indexRow++)
-                //{
-                //    for (int i = 0; i < columnCount; i++)
-                //    {
-                //        var temDataStr = dt.Rows[indexRow].Cells[i].Value.ToString().TrimEnd();
-                //        //if (temDataStr != "")
-                //        //{
-                //        //sw.Write(temDataStr);
-                //        sw.Write(dt.Rows[indexRow].Cells[i].ToString().Trim());
-                //        //}
-                //        //else
-                //        //{
-                //        //    sw.Write("N/A");
-                //        //}
+                sw.Close();
+                #endregion
+            }
+        }
 
+        public void WritePartItemToCsv(PartItem dt, string strFilePath)
+        {
+            using (var sw = new StreamWriter(strFilePath))
+            {
+                #region xuat csv file
 
-                //        if (i < columnCount - 1)
-                //        {
-                //            sw.Write(" ");
-                //        }
-                //    }
-                //    sw.Write(sw.NewLine);
-                //}
-                //Close the file
+                PartData temPart1 = new PartData();
+
+                sw.Write(temPart1.GetHeaderStringTo_Csv());
+
+                foreach (PartData temPart in PartListImport.BindingSourcePart)
+                {
+                    sw.Write(temPart.GetStringTo_CSV());
+                }
+
                 sw.Close();
                 #endregion
             }
@@ -314,11 +336,15 @@ namespace WindowsFormsApplication_First
                                 else if (columns[k].IndexOf(Constant_LK.Value) > -1)
                                 {
                                     temLinhKien.Value = temData;
+                                    if (temLinhKien.ValueOld == "NoValueOld")
+                                    {
+                                        temLinhKien.ValueOld = temData;
+                                    }
                                     //temLinhKien.FootPrint = temData;
                                 }
-                                else if (columns[k].IndexOf(Constant_LK.FootPrint) > -1)
+                                else if (columns[k].IndexOf(Constant_LK.ValueOld) > -1)
                                 {
-                                    temLinhKien.FootPrint = temData;
+                                    temLinhKien.ValueOld = temData;
                                 }
                                 #endregion
                                 dr[k] = temData;
@@ -364,49 +390,54 @@ namespace WindowsFormsApplication_First
                             for (int k = 0; k < columns.Count(); k++)
                             {
                                 #region Lấy data Linh kiện dang Import
+                                string temData = data[k];
                                 if (data[k].IndexOf("\r") > -1)
                                 {
-                                    data[k].Remove(data[k].IndexOf('\r'));
+                                    temData = data[k].Remove(data[k].IndexOf('\r'));
                                 }
 
                                 if (columns[k].IndexOf(Constant_LK.Part) > -1)
                                 {
-                                    temPart.Part = data[k];
+                                    temPart.Part = temData;
+                                }
+                                else if (columns[k] == Constant_LK.Feeder)
+                                {
+                                    temPart.Feeder = temData;
                                 }
                                 else if (columns[k].IndexOf(Constant_LK.PickupHight) > -1)
                                 {
-                                    temPart.PickupHight = data[k];
+                                    temPart.PickupHight = temData;
                                 }
                                 else if (columns[k].IndexOf(Constant_LK.PickupSpeed) > -1)
                                 {
-                                    temPart.PickupSpeed = data[k];
+                                    temPart.PickupSpeed = temData;
                                 }
                                 else if (columns[k].IndexOf(Constant_LK.PickupDelay) > -1)
                                 {
-                                    temPart.PickupDelay = data[k];
+                                    temPart.PickupDelay = temData;
                                 }
                                 else if (columns[k].IndexOf(Constant_LK.PasteHight) > -1)
                                 {
-                                    temPart.PasteHight = data[k];
+                                    temPart.PasteHight = temData;
                                 }
                                 else if (columns[k].IndexOf(Constant_LK.PasteSpeed) > -1)
                                 {
-                                    temPart.PasteSpeed = data[k];
+                                    temPart.PasteSpeed = temData;
                                 }
                                 else if (columns[k].IndexOf(Constant_LK.PasteDelay) > -1)
                                 {
-                                    temPart.PasteDelay = data[k];
+                                    temPart.PasteDelay = temData;
                                 }
                                 else if (columns[k].IndexOf(Constant_LK.Visual) > -1)
                                 {
-                                    temPart.Visual = data[k];
+                                    temPart.Visual = temData;
                                 }
                                 else if (columns[k].IndexOf(Constant_LK.DeltaAngleAtFeeder1) > -1)
                                 {
-                                    temPart.DeltaAngleAtFeeder1 = data[k];
+                                    temPart.DeltaAngleAtFeeder1 = temData;
                                 }
                                 #endregion
-                                dr[k] = data[k];
+                                dr[k] = temData;
 
                             }
 

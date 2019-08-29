@@ -14,6 +14,7 @@ namespace WindowsFormsApplication_First
         public string AngelNew { get; set; }
         public string AngelOld { get; set; }
         public string Value { get; set; }
+        public string ValueOld { get; set; }
         public string FootPrint { get; set; }
         
         public LinhKienData()
@@ -24,6 +25,7 @@ namespace WindowsFormsApplication_First
             AngelNew = "NA";
             AngelOld = "NA";
             Value = "NoVal";
+            ValueOld = "NoValueOld";
             FootPrint = "NoFoot";
         }
 
@@ -49,7 +51,8 @@ namespace WindowsFormsApplication_First
             //temstr += (AngelNew=="")?AngelOld:AngelNew; temstr += SplitStr;
             temstr += AngelNew; temstr += SplitStr;
             temstr += AngelOld; temstr += SplitStr;
-            temstr += Value; temstr += "\r\n";
+            temstr += Value; temstr += SplitStr;
+            temstr += ValueOld; temstr += "\r\n";
             return temstr;
         }
 
@@ -72,11 +75,10 @@ namespace WindowsFormsApplication_First
             string temstr = Posistion; temstr += SplitStr;
             temstr += MidX; temstr += SplitStr;
             temstr += MidY; temstr += SplitStr;
-            //temstr += (AngelNew == "") ? AngelOld : AngelNew; temstr += SplitStr;
             temstr += AngelNew; temstr += SplitStr;
             temstr += AngelOld; temstr += SplitStr;
-            temstr += FootPrint; temstr += SplitStr;
-            temstr += Value + "\r\n";
+            temstr += Value; temstr += SplitStr;
+            temstr += ValueOld + "\r\n";
             return temstr;
         }
 
@@ -101,7 +103,8 @@ namespace WindowsFormsApplication_First
             temstr += Constant_LK.MidY; temstr += SplitStr;
             temstr += Constant_LK.AngelNew; temstr += SplitStr;
             temstr += Constant_LK.AngelOld; temstr += SplitStr;
-            temstr += Constant_LK.Value + "\r\n";
+            temstr += Constant_LK.Value; temstr += SplitStr;
+            temstr += Constant_LK.ValueOld + "\r\n";
 
             return temstr;
         }
@@ -127,8 +130,8 @@ namespace WindowsFormsApplication_First
             temstr += Constant_LK.MidY; temstr += SplitStr;
             temstr += Constant_LK.AngelNew; temstr += SplitStr;
             temstr += Constant_LK.AngelOld; temstr += SplitStr;
-            temstr += Constant_LK.FootPrint; temstr += SplitStr;
-            temstr += Constant_LK.Value + "\r\n";
+            temstr += Constant_LK.Value; temstr += SplitStr;
+            temstr += Constant_LK.ValueOld + "\r\n";
 
             return temstr;
         }

@@ -50,10 +50,6 @@ namespace WindowsFormsApplication_First
             #endregion
 
             setupContextMenu();
-
-            //string testTT = "123\r\rgg\r\n";
-            //string test2 = testTT.Remove(testTT.IndexOf('\r'));
-            //string test3 = test2;
         }
 
         public void setupContextMenu ()
@@ -64,7 +60,7 @@ namespace WindowsFormsApplication_First
             itemTem.Click += btnContext_Edit_LK_Click;
             contextMenuStrip1.Items.Add(itemTem);
 
-            var btn_deleteRow = new ToolStripButton() { Text = "Change LK", AutoSize = true };
+            var btn_deleteRow = new ToolStripButton() { Text = "Delete LK", AutoSize = true };
             btn_deleteRow.Click += DeleteRowLK;
             contextMenuStrip1.Items.Add(btn_deleteRow);
         }
@@ -87,77 +83,32 @@ namespace WindowsFormsApplication_First
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    #region Get Extension file
-                    // https://stackoverflow.com/questions/4990910/how-to-get-file-extension-from-save-file-dialog
-                    var extension = Path.GetExtension(sfd.FileName);
-
-                    switch (extension.ToLower())
-                    {
-                        case ".txt":
-                            // ToDo: Save as JPEG
-                            break;
-                        case ".csv":
-                            // ToDo: Save as PNG
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException(extension);
-                    }
-                    #endregion
-
                     try
                     {
-                        #region Save to TXT
-                        //using (var sw = new StreamWriter(sfd.FileName))
-                        //{
-                        //    #region xuat txt file
-                        //    //Pass the filepath and filename to the StreamWriter Constructor
-                        //    //StreamWriter sw = new StreamWriter("C:\\Test.txt");
+                        #region Get Extension file
+                        // https://stackoverflow.com/questions/4990910/how-to-get-file-extension-from-save-file-dialog
+                        var extension = Path.GetExtension(sfd.FileName);
 
-                        //    ////Write a line of text
-                        //    //sw.WriteLine("Hello World!!");
-
-                        //    ////Write a second line of text
-                        //    //sw.WriteLine("From the StreamWriter class");
-
-                        //    int columnCount = dataGridView1.Columns.Count;
-
-                        //    for (int i = 0; i < columnCount; i++)
-                        //    {
-
-                        //        string kk = dataGridView1.Columns[i].HeaderText;
-                        //        sw.Write(kk);
-
-                        //        if (i < columnCount - 1)
-                        //        {
-                        //            sw.Write("\t");
-                        //        }
-                        //    }
-
-                        //    sw.Write(sw.NewLine);
-
-                        //    for (int indexRow = 0; indexRow < dataGridView1.Rows.Count; indexRow++)
-                        //    {
-                        //        for (int i = 0; i < columnCount; i++)
-                        //        {
-                        //            sw.Write(dataGridView1.Rows[indexRow].Cells[i].Value);
-
-                        //            if (i < columnCount - 1)
-                        //            {
-                        //                sw.Write("\t");
-                        //            }
-                        //        }
-
-                        //        sw.Write(sw.NewLine);
-                        //    }
-
-                        //    //Close the file
-                        //    sw.Close();
-                        //    #endregion
-                        //}
+                        switch (extension.ToLower())
+                        {
+                            case ".txt":
+                                MessageBox.Show(string.Format("txt: {0}", extension.ToLower()));
+                                LKManager.WriteLinhKienItemToTxt(LKManager.LKListImport, sfd.FileName);
+                                break;
+                            case ".csv":
+                                // ToDo: Save as PNG
+                                //MessageBox.Show(string.Format("csv: {0}", extension.ToLower()));
+                                LKManager.WriteLinhKienItemToCsv(LKManager.LKListImport, sfd.FileName);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException(extension);
+                        }
                         #endregion
 
-                        //LKManager.WriteDataGridToTxt(dataGridView1,sfd.FileName);
-                        LKManager.WriteLinhKienItemToTxt(LKManager.LKListImport,sfd.FileName);
+                        #region Save to TXT
+                        //LKManager.WriteLinhKienItemToTxt(LKManager.LKListImport, sfd.FileName);
+                        #endregion
+
                     }
                     catch (Exception e44)
                     {
@@ -386,14 +337,15 @@ namespace WindowsFormsApplication_First
         private void btn_writeCsvPart_Click(object sender, EventArgs e)
         {
             
-            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "CSV|*.csv|TXT|*.txt", ValidateNames = true })
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "CSV|*.csv", ValidateNames = true })
             {
                 if(sfd.ShowDialog() == DialogResult.OK)
                 {
                     //CreateCSVFile((DataTable)dataGridView2.DataSource, sfd.FileName);
                     //CreateCSVFile((DataTable)dataGridView2.DataSource, "I://ConvertedFile.csv");
 
-                    CreateCSVFile2(dataGridView2, sfd.FileName);
+                    //CreateCSVFile2(dataGridView2, sfd.FileName);
+                    LKManager.WritePartItemToCsv(LKManager.PartListImport,sfd.FileName);
                     MessageBox.Show("Đã lưu Csv 2", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 

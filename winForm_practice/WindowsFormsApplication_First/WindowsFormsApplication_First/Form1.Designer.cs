@@ -43,7 +43,6 @@
             this.btn_writeCsvPart = new System.Windows.Forms.Button();
             this.btn_ReadPartCsv = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -56,9 +55,9 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.dataGridView1.Location = new System.Drawing.Point(151, 6);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 40);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(821, 333);
+            this.dataGridView1.Size = new System.Drawing.Size(966, 333);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -67,7 +66,7 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ComBobox_partName});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 53);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(182, 31);
             // 
             // ComBobox_partName
             // 
@@ -78,7 +77,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(257, 345);
+            this.button1.Location = new System.Drawing.Point(84, 8);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -88,7 +87,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(387, 345);
+            this.button2.Location = new System.Drawing.Point(3, 6);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -100,7 +99,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -124,7 +122,7 @@
             // 
             // btn_Edit_LK
             // 
-            this.btn_Edit_LK.Location = new System.Drawing.Point(27, 6);
+            this.btn_Edit_LK.Location = new System.Drawing.Point(245, 8);
             this.btn_Edit_LK.Name = "btn_Edit_LK";
             this.btn_Edit_LK.Size = new System.Drawing.Size(75, 23);
             this.btn_Edit_LK.TabIndex = 4;
@@ -137,7 +135,7 @@
             this.cb_Part.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cb_Part.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cb_Part.FormattingEnabled = true;
-            this.cb_Part.Location = new System.Drawing.Point(3, 35);
+            this.cb_Part.Location = new System.Drawing.Point(326, 10);
             this.cb_Part.Name = "cb_Part";
             this.cb_Part.Size = new System.Drawing.Size(142, 21);
             this.cb_Part.TabIndex = 3;
@@ -158,7 +156,7 @@
             // 
             // btnUpdatePart
             // 
-            this.btnUpdatePart.Location = new System.Drawing.Point(246, 232);
+            this.btnUpdatePart.Location = new System.Drawing.Point(168, 6);
             this.btnUpdatePart.Name = "btnUpdatePart";
             this.btnUpdatePart.Size = new System.Drawing.Size(75, 23);
             this.btnUpdatePart.TabIndex = 6;
@@ -168,7 +166,7 @@
             // 
             // btn_writeCsvPart
             // 
-            this.btn_writeCsvPart.Location = new System.Drawing.Point(491, 232);
+            this.btn_writeCsvPart.Location = new System.Drawing.Point(87, 6);
             this.btn_writeCsvPart.Name = "btn_writeCsvPart";
             this.btn_writeCsvPart.Size = new System.Drawing.Size(75, 23);
             this.btn_writeCsvPart.TabIndex = 5;
@@ -178,7 +176,7 @@
             // 
             // btn_ReadPartCsv
             // 
-            this.btn_ReadPartCsv.Location = new System.Drawing.Point(377, 232);
+            this.btn_ReadPartCsv.Location = new System.Drawing.Point(6, 6);
             this.btn_ReadPartCsv.Name = "btn_ReadPartCsv";
             this.btn_ReadPartCsv.Size = new System.Drawing.Size(75, 23);
             this.btn_ReadPartCsv.TabIndex = 4;
@@ -189,24 +187,14 @@
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView2.Location = new System.Drawing.Point(6, 43);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(877, 200);
+            this.dataGridView2.Size = new System.Drawing.Size(966, 327);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.DataMemberChanged += new System.EventHandler(this.dataGridView2_DataMemberChanged);
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             this.dataGridView2.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView2_RowsAdded);
             this.dataGridView2.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView2_UserAddedRow);
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(889, 299);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Export TXT";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -243,7 +231,6 @@
         private System.Windows.Forms.Button btn_ReadPartCsv;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button btn_writeCsvPart;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripComboBox ComBobox_partName;
         private System.Windows.Forms.ComboBox cb_Part;
