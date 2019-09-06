@@ -58,6 +58,8 @@ namespace WindowsFormsApplication_First
             int temFeederID = strFeederid!=""?Convert.ToInt32(strFeederid) :0;
             int temSideFeeder1ID_MaX = 26;
 
+            byte temMiror = ((PartData)PartListImport.BindingSourcePart.Current).FoodPrintInfo.Mirror;
+
             foreach (LinhKienData temLK in LKListImport.BindingSourceLK)
             {
                 if (temLK.ValueOld == temNameLinhKien)
@@ -75,6 +77,14 @@ namespace WindowsFormsApplication_First
 
                     if (angle > 180) angle = angle - 360;
 
+                    if ((angle == -360) || (angle == 360)) angle = 0;
+                    else if (angle < -180) angle = -360 - angle;
+
+                    if(temMiror == Constant_LK.FootPrint_Miror)
+                    {
+                        if ((angle == -180) || (angle == 180)) angle = 0;
+                    }
+
                     temLK.AngelNew = angle.ToString();
                 }
             }
@@ -90,6 +100,7 @@ namespace WindowsFormsApplication_First
                 int temDeltaAngle = Convert.ToInt32(temPart.DeltaAngleAtFeeder1);
                 int temFeederID = temPart.Feeder != ""?Convert.ToInt32(temPart.Feeder):0;
                 int temSideFeeder1ID_MaX = 26;
+                byte temMiror = ((PartData)PartListImport.BindingSourcePart.Current).FoodPrintInfo.Mirror;
 
                 foreach (LinhKienData temLK in LKListImport.BindingSourceLK)
                 {
@@ -106,7 +117,14 @@ namespace WindowsFormsApplication_First
 
                         if (angle > 180) angle = angle - 360;
 
-                        
+                        if ((angle == -360) || (angle == 360)) angle = 0;
+                        else if (angle < -180) angle = -360 - angle;
+
+                        if (temMiror == Constant_LK.FootPrint_Miror)
+                        {
+                            if ((angle == -180) || (angle == 180)) angle = 0;
+                        }
+
                         temLK.AngelNew = angle.ToString();
                     }
                 }
@@ -435,6 +453,14 @@ namespace WindowsFormsApplication_First
                                 else if (columns[k].IndexOf(Constant_LK.DeltaAngleAtFeeder1) > -1)
                                 {
                                     temPart.DeltaAngleAtFeeder1 = temData;
+                                }
+                                else if (columns[k].IndexOf(Constant_LK.FootPrintName) > -1)
+                                {
+                                    temPart.FootPrintName = temData;
+                                }
+                                else if (columns[k].IndexOf(Constant_LK.FootPrintValue) > -1)
+                                {
+                                    temPart.FootPrintValue = temData;
                                 }
                                 #endregion
                                 dr[k] = temData;

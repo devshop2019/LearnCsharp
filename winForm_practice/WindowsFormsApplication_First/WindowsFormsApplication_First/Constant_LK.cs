@@ -27,6 +27,18 @@ namespace WindowsFormsApplication_First
         public static string PasteDelay = "PasteDelay";
         public static string Visual = "Visual";
         public static string DeltaAngleAtFeeder1 = "DeltaAngleAtFeeder1";
+        public static string FootPrintName = "FootPrintName";
+        public static string FootPrintValue = "FootPrintValue";
+
+
+        public static int FootPrint_Left = 0;
+        public static int FootPrint_Bot = 90;
+        public static int FootPrint_Right = 180;
+        public static int FootPrint_Top = 270;
+
+        public static byte FootPrint_Miror = 1;
+        public static byte FootPrint_NoMiror = 0;
+
         public static void debug(String format, params object[] args)
         {
             Console.WriteLine(format, args);

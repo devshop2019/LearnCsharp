@@ -18,6 +18,14 @@ namespace WindowsFormsApplication_First
         public string PasteDelay { get; set; }
         public string Visual { get; set; }
         public string DeltaAngleAtFeeder1 { get; set; }
+        public string FootPrintName { get; set; }
+        public string FootPrintValue { get; set; }
+        public FootPrintData FoodPrintInfo { get; set; }
+
+        public PartData()
+        {
+            FoodPrintInfo = new FootPrintData();
+        }
 
         public string GetHeaderStringTo_Csv()
         {
@@ -33,7 +41,9 @@ namespace WindowsFormsApplication_First
             temstr += Constant_LK.PasteDelay; temstr += SplitStr;
 
             temstr += Constant_LK.Visual; temstr += SplitStr;
-            temstr += Constant_LK.DeltaAngleAtFeeder1 + "\r\n";
+            temstr += Constant_LK.DeltaAngleAtFeeder1; temstr += SplitStr;
+            temstr += Constant_LK.FootPrintName; temstr += SplitStr;
+            temstr += Constant_LK.FootPrintValue + "\r\n";
 
             return temstr;
         }
@@ -53,7 +63,9 @@ namespace WindowsFormsApplication_First
             temstr += PasteDelay; temstr += SplitStr;
 
             temstr += Visual; temstr += SplitStr;
-            temstr += DeltaAngleAtFeeder1 + "\r\n";
+            temstr += DeltaAngleAtFeeder1; temstr += SplitStr;
+            temstr += FootPrintName; temstr += SplitStr;
+            temstr += FootPrintValue + "\r\n";
             return temstr;
         }
     }

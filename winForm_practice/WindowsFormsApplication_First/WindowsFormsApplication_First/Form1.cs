@@ -411,5 +411,149 @@ namespace WindowsFormsApplication_First
         {
             
         }
+
+        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("Tab index change"); // Ko dùng duoc
+        }
+
+        private void tabControl1_Selected(object sender, TabControlEventArgs e)
+        {
+            TabControl tab = sender as TabControl;
+            //MessageBox.Show(string.Format("Tab {0} selected", tab.SelectedIndex.ToString()));
+
+            if (tab.SelectedIndex == 2)
+            {
+                if (LKManager.PartListImport.BindingSourcePart.Count == 0)
+                {
+                    MessageBox.Show("Please import part ");
+                    return;
+                }
+
+                txb_newFootPrint.Text = ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FootPrintName;
+
+                #region Get footprint info
+
+                string temDataFootPrint = ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FootPrintValue;
+
+                //byte TemAngeInLayout = Convert.ToByte(((PartData)LKManager.PartListImport.BindingSourcePart.Current).FootPrintValue);
+
+                FootPrintData temFootprint = ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo;
+                temFootprint.getValueFromString(temDataFootPrint);
+
+                //((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo.getValueFromString(temDataFootPrint);
+
+                //byte TemAngeInLayout = ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo.AngeInLayout;
+                //byte TemAngeAtFeeder1 = ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo.AngeAtFeeder1;
+
+                byte TemAngeInLayout = temFootprint.AngeInLayout;
+                byte TemAngeAtFeeder1 = temFootprint.AngeAtFeeder1;
+
+                #endregion
+                txb_showCurrentAngle_Eagle.Text = (TemAngeInLayout * 90).ToString();
+                txb_showCurrentAngle_Feeder1.Text = (TemAngeAtFeeder1 * 90).ToString();
+
+                #region setup check box
+                cb_miror.Checked = false;
+                cb_miror.Checked = ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo.Mirror == 1? true:false;
+                #endregion
+
+                #region Setup Radiobutton
+                switch (TemAngeInLayout)
+                {
+                    case 0:
+                        rdio_Eagle_1.Checked = true;
+                        break;
+                    case 1:
+                        rdio_Eagle_2.Checked = true;
+                        break;
+                    case 2:
+                        rdio_Eagle_3.Checked = true;
+                        break;
+                    case 3:
+                        rdio_Eagle_4.Checked = true;
+                        break;
+                    default:
+                        break;
+                }
+                switch (TemAngeAtFeeder1)
+                {
+                    case 0:
+                        rdio_Feeder_1.Checked = true;
+                        break;
+                    case 1:
+                        rdio_Feeder_2.Checked = true;
+                        break;
+                    case 2:
+                        rdio_Feeder_3.Checked = true;
+                        break;
+                    case 3:
+                        rdio_Feeder_4.Checked = true;
+                        break;
+                    default:
+                        break;
+                }
+                #endregion
+
+                //txb_newDeltaAngle.Text = (TemAngeInLayout * 90 - TemAngeAtFeeder1 * 90).ToString();
+                txb_newDeltaAngle.Text = (temFootprint.AngeAtFeeder1 * 90 - temFootprint.AngeInLayout * 90).ToString();
+            }
+        }
+
+        private void btn_newSave_Click(object sender, EventArgs e)
+        {
+            FootPrintData temFootprint = ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo;
+
+            //temFootprint.AngeInLayout = Convert.ToByte(txb_showCurrentAngle_Eagle.Text);
+            //temFootprint.AngeAtFeeder1 = Convert.ToByte(txb_showCurrentAngle_Feeder1.Text);
+            temFootprint.Mirror = (byte)(cb_miror.Checked == true ? 1 : 0);
+            ((PartData)LKManager.PartListImport.BindingSourcePart.Current).DeltaAngleAtFeeder1 = txb_newDeltaAngle.Text;
+            ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FootPrintName = txb_newFootPrint.Text;
+            ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FootPrintValue = temFootprint.getString();
+            //((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo.Mirror = (byte)(cb_miror.Checked == true ? 1 : 0);
+        }
+
+        private void rdio_Eagle_4_Click(object sender, EventArgs e)
+        {
+            RadioButton temRadioBtn = sender as RadioButton;
+
+            if (LKManager.PartListImport.BindingSourcePart.Count == 0)
+            {
+                MessageBox.Show("Please import part ");
+                return;
+            }
+
+            FootPrintData temFootprint = ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo;
+            temFootprint.AngeInLayout = (byte)(temRadioBtn.TabIndex - 1);
+
+            txb_showCurrentAngle_Eagle.Text = (temFootprint.AngeInLayout * 90).ToString();
+
+            //txb_newDeltaAngle.Text = (temFootprint.AngeInLayout * 90 - temFootprint.AngeAtFeeder1 * 90).ToString();
+            txb_newDeltaAngle.Text = (temFootprint.AngeAtFeeder1 * 90 - temFootprint.AngeInLayout * 90).ToString();
+        }
+
+        private void rdio_Feeder_4_Click(object sender, EventArgs e)
+        {
+            RadioButton temRadioBtn = sender as RadioButton;
+
+            if (LKManager.PartListImport.BindingSourcePart.Count == 0)
+            {
+                MessageBox.Show("Please import part ");
+                return;
+            }
+
+            FootPrintData temFootprint = ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo;
+            temFootprint.AngeAtFeeder1 = (byte)(temRadioBtn.TabIndex - 1);
+
+            txb_showCurrentAngle_Feeder1.Text = (temFootprint.AngeAtFeeder1 * 90).ToString();
+
+            //txb_newDeltaAngle.Text = (temFootprint.AngeInLayout * 90 - temFootprint.AngeAtFeeder1 * 90).ToString();
+            txb_newDeltaAngle.Text = (temFootprint.AngeAtFeeder1 * 90 - temFootprint.AngeInLayout * 90).ToString();
+        }
+
+        //private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+
+        //}
     }
 }
