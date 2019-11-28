@@ -36,6 +36,13 @@
             this.button2 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.nud_LongY = new System.Windows.Forms.NumericUpDown();
+            this.nud_LongX = new System.Windows.Forms.NumericUpDown();
+            this.nud_NumY = new System.Windows.Forms.NumericUpDown();
+            this.nud_NumX = new System.Windows.Forms.NumericUpDown();
             this.btn_Edit_LK = new System.Windows.Forms.Button();
             this.cb_Part = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -81,10 +88,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_SavePartInfor = new System.Windows.Forms.Button();
             this.cbb_editFootprintInfo = new System.Windows.Forms.ComboBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btn_UpdatePanelLine = new System.Windows.Forms.Button();
+            this.btn_PanelLineSaveCSV = new System.Windows.Forms.Button();
+            this.dataGridView3_ExportLK = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_LongY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_LongX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_NumY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_NumX)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -94,6 +109,8 @@
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3_ExportLK)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -145,6 +162,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -154,6 +172,13 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label13);
+            this.tabPage1.Controls.Add(this.label12);
+            this.tabPage1.Controls.Add(this.label10);
+            this.tabPage1.Controls.Add(this.nud_LongY);
+            this.tabPage1.Controls.Add(this.nud_LongX);
+            this.tabPage1.Controls.Add(this.nud_NumY);
+            this.tabPage1.Controls.Add(this.nud_NumX);
             this.tabPage1.Controls.Add(this.btn_Edit_LK);
             this.tabPage1.Controls.Add(this.cb_Part);
             this.tabPage1.Controls.Add(this.dataGridView1);
@@ -167,9 +192,107 @@
             this.tabPage1.Text = "Import file tọa độ";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(753, 13);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(23, 13);
+            this.label13.TabIndex = 11;
+            this.label13.Text = "mm";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(829, 13);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(55, 13);
+            this.label12.TabIndex = 10;
+            this.label12.Text = "Count X-Y";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(441, 13);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(51, 13);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "Long X-Y";
+            // 
+            // nud_LongY
+            // 
+            this.nud_LongY.DecimalPlaces = 2;
+            this.nud_LongY.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nud_LongY.Location = new System.Drawing.Point(628, 11);
+            this.nud_LongY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nud_LongY.Name = "nud_LongY";
+            this.nud_LongY.Size = new System.Drawing.Size(121, 20);
+            this.nud_LongY.TabIndex = 8;
+            // 
+            // nud_LongX
+            // 
+            this.nud_LongX.DecimalPlaces = 2;
+            this.nud_LongX.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nud_LongX.Location = new System.Drawing.Point(498, 11);
+            this.nud_LongX.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nud_LongX.Name = "nud_LongX";
+            this.nud_LongX.Size = new System.Drawing.Size(126, 20);
+            this.nud_LongX.TabIndex = 7;
+            this.nud_LongX.ThousandsSeparator = true;
+            // 
+            // nud_NumY
+            // 
+            this.nud_NumY.Location = new System.Drawing.Point(932, 11);
+            this.nud_NumY.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_NumY.Name = "nud_NumY";
+            this.nud_NumY.Size = new System.Drawing.Size(36, 20);
+            this.nud_NumY.TabIndex = 6;
+            this.nud_NumY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nud_NumX
+            // 
+            this.nud_NumX.Location = new System.Drawing.Point(890, 11);
+            this.nud_NumX.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_NumX.Name = "nud_NumX";
+            this.nud_NumX.Size = new System.Drawing.Size(36, 20);
+            this.nud_NumX.TabIndex = 5;
+            this.nud_NumX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // btn_Edit_LK
             // 
-            this.btn_Edit_LK.Location = new System.Drawing.Point(245, 8);
+            this.btn_Edit_LK.Location = new System.Drawing.Point(187, 8);
             this.btn_Edit_LK.Name = "btn_Edit_LK";
             this.btn_Edit_LK.Size = new System.Drawing.Size(75, 23);
             this.btn_Edit_LK.TabIndex = 4;
@@ -182,7 +305,7 @@
             this.cb_Part.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cb_Part.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cb_Part.FormattingEnabled = true;
-            this.cb_Part.Location = new System.Drawing.Point(326, 10);
+            this.cb_Part.Location = new System.Drawing.Point(268, 10);
             this.cb_Part.Name = "cb_Part";
             this.cb_Part.Size = new System.Drawing.Size(142, 21);
             this.cb_Part.TabIndex = 3;
@@ -622,6 +745,47 @@
             this.cbb_editFootprintInfo.Size = new System.Drawing.Size(121, 21);
             this.cbb_editFootprintInfo.TabIndex = 1;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.btn_UpdatePanelLine);
+            this.tabPage4.Controls.Add(this.btn_PanelLineSaveCSV);
+            this.tabPage4.Controls.Add(this.dataGridView3_ExportLK);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(978, 376);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Export Panel Line";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // btn_UpdatePanelLine
+            // 
+            this.btn_UpdatePanelLine.Location = new System.Drawing.Point(87, 14);
+            this.btn_UpdatePanelLine.Name = "btn_UpdatePanelLine";
+            this.btn_UpdatePanelLine.Size = new System.Drawing.Size(112, 23);
+            this.btn_UpdatePanelLine.TabIndex = 9;
+            this.btn_UpdatePanelLine.Text = "Update Panel Line";
+            this.btn_UpdatePanelLine.UseVisualStyleBackColor = true;
+            this.btn_UpdatePanelLine.Click += new System.EventHandler(this.btn_UpdatePanelLine_Click);
+            // 
+            // btn_PanelLineSaveCSV
+            // 
+            this.btn_PanelLineSaveCSV.Location = new System.Drawing.Point(6, 14);
+            this.btn_PanelLineSaveCSV.Name = "btn_PanelLineSaveCSV";
+            this.btn_PanelLineSaveCSV.Size = new System.Drawing.Size(75, 23);
+            this.btn_PanelLineSaveCSV.TabIndex = 8;
+            this.btn_PanelLineSaveCSV.Text = "WriteCSV";
+            this.btn_PanelLineSaveCSV.UseVisualStyleBackColor = true;
+            this.btn_PanelLineSaveCSV.Click += new System.EventHandler(this.btn_PanelLineSaveCSV_Click);
+            // 
+            // dataGridView3_ExportLK
+            // 
+            this.dataGridView3_ExportLK.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3_ExportLK.Location = new System.Drawing.Point(6, 43);
+            this.dataGridView3_ExportLK.Name = "dataGridView3_ExportLK";
+            this.dataGridView3_ExportLK.Size = new System.Drawing.Size(966, 327);
+            this.dataGridView3_ExportLK.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -635,6 +799,11 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_LongY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_LongX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_NumY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_NumX)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -650,6 +819,8 @@
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3_ExportLK)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -713,6 +884,17 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btn_newSave;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown nud_LongY;
+        private System.Windows.Forms.NumericUpDown nud_LongX;
+        private System.Windows.Forms.NumericUpDown nud_NumY;
+        private System.Windows.Forms.NumericUpDown nud_NumX;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Button btn_UpdatePanelLine;
+        private System.Windows.Forms.Button btn_PanelLineSaveCSV;
+        private System.Windows.Forms.DataGridView dataGridView3_ExportLK;
     }
 }
 

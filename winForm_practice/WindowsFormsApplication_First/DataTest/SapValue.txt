@@ -1,0 +1,6 @@
+STT	Name	Angle	Value
+1	aa	4	100K
+2	bb	2	10K
+4	đ	3	5uH
+3	cc	1	7uH
+			

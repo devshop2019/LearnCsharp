@@ -15,18 +15,31 @@ namespace WindowsFormsApplication_First
         public string AngelOld { get; set; }
         public string Value { get; set; }
         public string ValueOld { get; set; }
+        //public string NoozleId { get; set; }
         public string FootPrint { get; set; }
         
         public LinhKienData()
         {
             Posistion = "NoPos";
             MidX = "1000mm";
-            MidX = "1000mm";
+            MidY = "1000mm";
             AngelNew = "NA";
             AngelOld = "NA";
             Value = "NoVal";
             ValueOld = "NoValueOld";
             FootPrint = "NoFoot";
+        }
+
+        public LinhKienData(LinhKienData data_)
+        {
+            Posistion = data_.Posistion;
+            MidX = data_.MidX;
+            MidY = data_.MidY;
+            AngelNew = data_.AngelNew;
+            AngelOld = data_.AngelOld;
+            Value = data_.Value;
+            ValueOld = data_.ValueOld;
+            FootPrint = data_.FootPrint;
         }
 
         public string GetString()
@@ -53,6 +66,17 @@ namespace WindowsFormsApplication_First
             temstr += AngelOld; temstr += SplitStr;
             temstr += Value; temstr += SplitStr;
             temstr += ValueOld; temstr += "\r\n";
+            return temstr;
+        }
+
+        public string GetStringTo_Kayo_TXT()
+        {
+            string SplitStr = " ";
+            string temstr = Posistion;          temstr += SplitStr;
+            temstr += MidX;                     temstr += SplitStr;
+            temstr += MidY;                     temstr += SplitStr;
+            temstr += AngelNew;                 temstr += SplitStr;
+            temstr += Value;                 temstr += "\r\n";
             return temstr;
         }
 
@@ -105,6 +129,18 @@ namespace WindowsFormsApplication_First
             temstr += Constant_LK.AngelOld; temstr += SplitStr;
             temstr += Constant_LK.Value; temstr += SplitStr;
             temstr += Constant_LK.ValueOld + "\r\n";
+
+            return temstr;
+        }
+
+        public string GetHeaderStringTo_Kayo_TXT()
+        {
+            string SplitStr = " ";
+            string temstr = Constant_LK.Posistion; temstr += SplitStr;
+            temstr += Constant_LK.MidX; temstr += SplitStr;
+            temstr += Constant_LK.MidY; temstr += SplitStr;
+            temstr += Constant_LK.AngelNew; temstr += SplitStr;
+            temstr += Constant_LK.Value + "\r\n";
 
             return temstr;
         }

@@ -14,6 +14,7 @@ namespace WindowsFormsApplication_First
         {
             BindingSourceLK = new BindingSource();
             BindingSourceLK.DataSource = typeof(LinhKienData);
+            //BindingSourceLK.Sort = "Posistion ASC, MidX DESC";
         }
     }
 }

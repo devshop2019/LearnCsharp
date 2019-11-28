@@ -1,0 +1,1 @@
+STT,Part,Feeder,PickupHight ,PickupSpeed,PickupDelay,PasteHight,PasteSpeed,PasteDellay,Visual,Angle_Feeder1,Angle_Machine1,R0603_1K,3,1000,2,10,1500,3,10,mmm,0,02,R0603_2K,3,226666,2,10,1500,3,10,mmm,90,03,C0603_1uF,4,24,5,22,14444,34,32,hh,966,04,C0603_10uF,4,555,444,333,222,444,66,gg,ss,05,,,,,,,,,,,

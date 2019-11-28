@@ -1,0 +1,5 @@
+Designator Mid X Mid Y New_Angel Rotation Comment ValueOld
+A1 100.00mm 100.00mm NA -90 A1 A1
+A2 61.62mm 40.32mm NA -90 A2 A2
+C1 78.66mm 93.65mm NA 90 100nF 100nF
+C2 89.97mm 93.65mm NA 90 100nF 100nF

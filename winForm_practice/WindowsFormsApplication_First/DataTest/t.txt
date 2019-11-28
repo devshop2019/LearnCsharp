@@ -1,0 +1,2 @@
+Posistion MidX MidY AngelNew AngelOld Value FootPrint
+      

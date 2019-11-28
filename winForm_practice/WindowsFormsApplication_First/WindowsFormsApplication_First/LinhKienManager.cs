@@ -12,10 +12,11 @@ namespace WindowsFormsApplication_First
     public class LinhKienManager
     {
         #region Property
-        public LinhKienItem LKListImport { get; set;}
+        public LinhKienItem LKListImport { get; set; }
         public LinhKienItem LKListExport { get; set; }
         public PartItem PartListImport { get; set; }
         public PartItem PartListExport { get; set; }
+        public HashSet<string> ListValue = new HashSet<string>();
         private LinhKienItem LKitems;
         public LinhKienItem LKItems
         {
@@ -78,9 +79,11 @@ namespace WindowsFormsApplication_First
                     if (angle > 180) angle = angle - 360;
 
                     if ((angle == -360) || (angle == 360)) angle = 0;
-                    else if (angle < -180) angle = -360 - angle;
+                    else if (angle < -180) angle = 360 + angle;
+                    //else if (angle < -360) angle = 360 + angle;
+                    else if (angle == -180) angle = 180;
 
-                    if(temMiror == Constant_LK.FootPrint_Miror)
+                    if (temMiror == Constant_LK.FootPrint_Miror)
                     {
                         if ((angle == -180) || (angle == 180)) angle = 0;
                     }
@@ -100,7 +103,8 @@ namespace WindowsFormsApplication_First
                 int temDeltaAngle = Convert.ToInt32(temPart.DeltaAngleAtFeeder1);
                 int temFeederID = temPart.Feeder != ""?Convert.ToInt32(temPart.Feeder):0;
                 int temSideFeeder1ID_MaX = 26;
-                byte temMiror = ((PartData)PartListImport.BindingSourcePart.Current).FoodPrintInfo.Mirror;
+                //byte temMiror = ((PartData)PartListImport.BindingSourcePart.Current).FoodPrintInfo.Mirror;
+                byte temMiror = temPart.FoodPrintInfo.Mirror;
 
                 foreach (LinhKienData temLK in LKListImport.BindingSourceLK)
                 {
@@ -118,7 +122,9 @@ namespace WindowsFormsApplication_First
                         if (angle > 180) angle = angle - 360;
 
                         if ((angle == -360) || (angle == 360)) angle = 0;
-                        else if (angle < -180) angle = -360 - angle;
+                        else if (angle < -180) angle = 360 + angle;
+                        //else if (angle < -360) angle = 360 + angle;
+                        else if (angle == -180) angle = 180;
 
                         if (temMiror == Constant_LK.FootPrint_Miror)
                         {
@@ -204,6 +210,17 @@ namespace WindowsFormsApplication_First
                     sw.Write(temLK.GetStringTo_TXT());
 
                 }
+                sw.Close();
+                #endregion
+            }
+        }
+
+        public void WriteKeyWordLinhKienItemToTxt(LinhKienItem listLK, string strFilePath)
+        {
+            using (var sw = new StreamWriter(strFilePath))
+            {
+                #region xuat txt file chuẩn Kayo
+                sw.Write(ExportLinhKienToKeyWord(listLK));
                 sw.Close();
                 #endregion
             }
@@ -370,11 +387,17 @@ namespace WindowsFormsApplication_First
                             }
 
                             LKListImport.BindingSourceLK.Add(temLinhKien);     // Add linh kiện vừa Import
+                            //LKListImport.BindingSourceLK.Sort = "ValueOld ASC, Posistion DESC";
+                            //LKListImport.BindingSourceLK.Sort = "MidX DESC, Posistion DESC";
+                            //LKListImport.BindingSourceLK.Sort = "ValueOld ASC";
                             dt.Rows.Add(dr);
                         }
                     }
                 }
             }
+
+            MessageBox.Show(string.Format("Sort status: {0}", LKListImport.BindingSourceLK.SupportsAdvancedSorting));
+            LKListImport.BindingSourceLK.Sort = "ValueOld ASC";
             return dt;
         }
 
@@ -461,6 +484,7 @@ namespace WindowsFormsApplication_First
                                 else if (columns[k].IndexOf(Constant_LK.FootPrintValue) > -1)
                                 {
                                     temPart.FootPrintValue = temData;
+                                    temPart.FoodPrintInfo.getValueFromString(temData);
                                 }
                                 #endregion
                                 dr[k] = temData;
@@ -475,6 +499,76 @@ namespace WindowsFormsApplication_First
             }
             return dt;
         }
+
+        public void ExportLinhKienToPanelLine(LinhKienItem dt ,float _longX, float _longY, int _numberX, int _numberY)
+        {
+            if (dt.BindingSourceLK.Count < 1)
+            {
+                return;
+            }
+
+            LKListExport.BindingSourceLK.Clear();
+
+            int temCount = 0;
+
+            for (int cf_y = 0; cf_y < _numberY; cf_y++)
+            {
+                for (int cf_x = 0; cf_x < _numberX; cf_x++)
+                {
+                    temCount++;
+
+                    foreach (LinhKienData temLKData in dt.BindingSourceLK)
+                    {
+                        // remote mm
+                        LinhKienData temDataExport = new LinhKienData(temLKData);
+
+                        float temMidX = Convert.ToSingle(temLKData.MidX.Remove(temLKData.MidX.IndexOf("mm")));
+                        float temMidY = Convert.ToSingle(temLKData.MidY.Remove(temLKData.MidY.IndexOf("mm")));
+
+                        temMidX = temMidX + _longX * cf_x;
+                        temMidY = temMidY + _longY * cf_y;
+
+                        temDataExport.Posistion = string.Format("{0}_{1}", temLKData.Posistion, temCount);
+                        //temDataExport.AngelNew = temLKData.AngelNew;
+                        //temDataExport.AngelOld = temLKData.AngelOld;
+                        //temDataExport.Value = temLKData.Value;
+                        //temDataExport.ValueOld = temLKData.ValueOld;
+                        temDataExport.MidX = string.Format("{0}mm", temMidX);
+                        temDataExport.MidY = string.Format("{0}mm", temMidY);
+
+
+                        LKListExport.BindingSourceLK.Add(temDataExport);
+
+                    }
+                }
+            }
+            LKListExport.BindingSourceLK.ResetBindings(true);
+        }
+
+        public string ExportLinhKienToKeyWord(LinhKienItem listLK)
+        {
+            string temExportString = "";
+            ListValue.Clear();
+            foreach (LinhKienData temLKdata in listLK.BindingSourceLK)
+            {
+                ListValue.Add(temLKdata.Value);
+            }
+
+            foreach (string temValueLK in ListValue)
+            {
+                foreach (LinhKienData temLKdata in listLK.BindingSourceLK)
+                {
+                    if (temValueLK == temLKdata.Value)
+                    {
+                        temExportString += string.Format("{0},", temLKdata.Posistion);
+                    }
+                }
+                temExportString += string.Format("\r\n======>{0}<======\r\n\r\n", temValueLK);
+            }
+
+            return temExportString;
+        }
+
         #endregion
     }
 }

@@ -27,6 +27,8 @@ using System.Text.RegularExpressions;
  * 
  * http://csharp.net-informations.com/datagridview/csharp-datagridview-filter.htm
  * 
+ * sort: http://gockinhnghiem.com/2010/09/14/sort-sap-xep-du-lieu-tren-datatable/
+ * sort: https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.bindingsource.sort?view=netframework-4.8
  */
 
 namespace WindowsFormsApplication_First
@@ -36,6 +38,95 @@ namespace WindowsFormsApplication_First
         public LinhKienManager LKManager { get; set; }
         public int testValue { get; set; }
 
+        private void PopulateDataViewAndAdvancedSort()
+        {
+            tabControl1.Visible = false;
+
+            DataSet set1 = new DataSet();
+            //https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.bindingsource.sort?view=netframework-4.8
+
+            // Some xml data to populate the DataSet with.
+            string musicXml =
+                "<?xml version='1.0' encoding='UTF-8'?>" +
+                "<music>" +
+                "<recording><artist>Dave Matthews</artist><cm d>Under the Table and Dreaming</cd></recording>" +
+                "<recording><artist>Coldplay</artist><cd>X&amp;Y</cd></recording>" +
+                "<recording><artist>Dave Matthews</artist><cd>Live at Red Rocks</cd></recording>" +
+                "<recording><artist>U2</artist><cd>Joshua Tree</cd></recording>" +
+                "<recording><artist>U2</artist><cd>How to Dismantle an Atomic Bomb</cd></recording>" +
+                "<recording><artist>Natalie Merchant</artist><cd>Tigerlily</cd></recording>" +
+                "</music>";
+
+            // Read the xml.
+            StringReader reader = new StringReader(musicXml);
+            set1.ReadXml(reader);
+            
+
+            // Get a DataView of the table contained in the dataset.
+            DataTableCollection tables = set1.Tables;
+            DataView view1 = new DataView(tables[0]);
+
+            // Create a DataGridView control and add it to the form.
+            DataGridView datagridview1 = new DataGridView();
+            datagridview1.AutoGenerateColumns = true;
+            this.Controls.Add(datagridview1);
+
+            // Create a BindingSource and set its DataSource property to
+            // the DataView.
+            BindingSource source1 = new BindingSource();
+            source1.DataSource = view1;
+
+            // Set the data source for the DataGridView.
+            datagridview1.DataSource = source1;
+
+            source1.Sort = "artist ASC, cd ASC";
+        }
+
+        private void LinhKienDataViewAndAdvancedSort(DataTable dt)
+        {
+            //tabControl1.Visible = false;
+
+            DataSet set1 = new DataSet();
+            //https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.bindingsource.sort?view=netframework-4.8
+
+            //// Some xml data to populate the DataSet with.
+            //string musicXml =
+            //    "<?xml version='1.0' encoding='UTF-8'?>" +
+            //    "<music>" +
+            //    "<recording><artist>Dave Matthews</artist><cm d>Under the Table and Dreaming</cd></recording>" +
+            //    "<recording><artist>Coldplay</artist><cd>X&amp;Y</cd></recording>" +
+            //    "<recording><artist>Dave Matthews</artist><cd>Live at Red Rocks</cd></recording>" +
+            //    "<recording><artist>U2</artist><cd>Joshua Tree</cd></recording>" +
+            //    "<recording><artist>U2</artist><cd>How to Dismantle an Atomic Bomb</cd></recording>" +
+            //    "<recording><artist>Natalie Merchant</artist><cd>Tigerlily</cd></recording>" +
+            //    "</music>";
+
+            //// Read the xml.
+            //StringReader reader = new StringReader(musicXml);
+            //set1.ReadXml(reader);
+
+
+            // Get a DataView of the table contained in the dataset.
+            //DataTable gg = new DataTable();
+            //DataTableCollection tables = set1.Tables;
+            DataView view1 = new DataView(dt);
+
+            // Create a DataGridView control and add it to the form.
+            DataGridView datagridview1 = new DataGridView();
+            datagridview1.AutoGenerateColumns = true;
+            this.Controls.Add(datagridview1);
+
+            // Create a BindingSource and set its DataSource property to
+            // the DataView.
+            BindingSource source1 = new BindingSource();
+            source1.DataSource = view1;
+
+            // Set the data source for the DataGridView.
+            dataGridView1.DataSource = source1;
+
+            source1.Sort = "ValueOld ASC";
+        }
+
         public Form1()
         {
             InitializeComponent();
@@ -43,6 +134,8 @@ namespace WindowsFormsApplication_First
             LKManager = new LinhKienManager();
             dataGridView1.DataSource = LKManager.LKListImport.BindingSourceLK;
             dataGridView2.DataSource = LKManager.PartListImport.BindingSourcePart;
+            dataGridView3_ExportLK.DataSource = LKManager.LKListExport.BindingSourceLK;
+
             cb_Part.DataSource = LKManager.PartListImport.BindingSourcePart;
             cb_Part.DisplayMember = "Part";
             #region chua chay dc
@@ -88,12 +181,16 @@ namespace WindowsFormsApplication_First
                         #region Get Extension file
                         // https://stackoverflow.com/questions/4990910/how-to-get-file-extension-from-save-file-dialog
                         var extension = Path.GetExtension(sfd.FileName);
+                        string currentNameFile = Path.GetFileNameWithoutExtension(sfd.FileName);
 
                         switch (extension.ToLower())
                         {
                             case ".txt":
                                 MessageBox.Show(string.Format("txt: {0}", extension.ToLower()));
                                 LKManager.WriteLinhKienItemToTxt(LKManager.LKListImport, sfd.FileName);
+
+                                string newPath = sfd.FileName.Replace(currentNameFile, string.Format("{0}_KEYWORD", currentNameFile));
+                                LKManager.WriteKeyWordLinhKienItemToTxt(LKManager.LKListImport, newPath);
                                 break;
                             case ".csv":
                                 // ToDo: Save as PNG
@@ -191,7 +288,7 @@ namespace WindowsFormsApplication_First
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    LKManager.ReadCsvFileToLinhKien(ofd.FileName);
+                    LinhKienDataViewAndAdvancedSort(LKManager.ReadCsvFileToLinhKien(ofd.FileName));
                 }
             }
             #endregion
@@ -421,8 +518,9 @@ namespace WindowsFormsApplication_First
         {
             TabControl tab = sender as TabControl;
             //MessageBox.Show(string.Format("Tab {0} selected", tab.SelectedIndex.ToString()));
-
+            
             if (tab.SelectedIndex == 2)
+            #region Tab 2 selected - Part info
             {
                 if (LKManager.PartListImport.BindingSourcePart.Count == 0)
                 {
@@ -498,6 +596,15 @@ namespace WindowsFormsApplication_First
                 //txb_newDeltaAngle.Text = (TemAngeInLayout * 90 - TemAngeAtFeeder1 * 90).ToString();
                 txb_newDeltaAngle.Text = (temFootprint.AngeAtFeeder1 * 90 - temFootprint.AngeInLayout * 90).ToString();
             }
+            #endregion
+
+            
+            else if (tab.SelectedIndex == 3)
+            #region Tab 3 seleted - ExportPaneLine
+            {
+                //LKManager.ExportLinhKienToPanelLine(LKManager.LKListImport, (float)nud_LongX.Value, (float)nud_LongY.Value, (int)nud_NumX.Value, (int)nud_NumY.Value);
+            }
+            #endregion
         }
 
         private void btn_newSave_Click(object sender, EventArgs e)
@@ -551,9 +658,54 @@ namespace WindowsFormsApplication_First
             txb_newDeltaAngle.Text = (temFootprint.AngeAtFeeder1 * 90 - temFootprint.AngeInLayout * 90).ToString();
         }
 
-        //private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        //{
+        private void btn_UpdatePanelLine_Click(object sender, EventArgs e)
+        {
+            LKManager.ExportLinhKienToPanelLine(LKManager.LKListImport, (float)nud_LongX.Value, (float)nud_LongY.Value, (int)nud_NumX.Value, (int)nud_NumY.Value);
+            //string msBoxString = LKManager.ExportLinhKienToKeyWord(LKManager.LKListExport);
+            //MessageBox.Show(msBoxString);
+        }
 
-        //}
+        private void btn_PanelLineSaveCSV_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "TXT|*.txt", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        #region Get Extension file
+                        // https://stackoverflow.com/questions/4990910/how-to-get-file-extension-from-save-file-dialog
+                        var extension = Path.GetExtension(sfd.FileName);
+                        string currentNameFile = Path.GetFileNameWithoutExtension(sfd.FileName);
+
+                        switch (extension.ToLower())
+                        {
+                            case ".txt":
+                                MessageBox.Show(string.Format("txt: {0}", extension.ToLower()));
+                                LKManager.WriteLinhKienItemToTxt(LKManager.LKListExport, sfd.FileName);
+
+                                string newPath = sfd.FileName.Replace(currentNameFile, string.Format("{0}_KEYWORD", currentNameFile));
+                                LKManager.WriteKeyWordLinhKienItemToTxt(LKManager.LKListExport, newPath);
+                                break;
+                            case ".csv":
+                                LKManager.WriteLinhKienItemToCsv(LKManager.LKListExport, sfd.FileName);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException(extension);
+                        }
+                        #endregion
+                    }
+                    catch (Exception e44)
+                    {
+                        Console.WriteLine("Exception: " + e44.Message);
+                    }
+                    finally
+                    {
+                        Console.WriteLine("Executing finally block.");
+                    }
+                }
+                MessageBox.Show("Đã lưu Data", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
