@@ -119,12 +119,14 @@
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Location = new System.Drawing.Point(6, 40);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(966, 333);
+            this.dataGridView1.RowHeadersWidth = 62;
+            this.dataGridView1.Size = new System.Drawing.Size(927, 333);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ComBobox_partName});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -166,7 +168,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(986, 402);
+            this.tabControl1.Size = new System.Drawing.Size(967, 402);
             this.tabControl1.TabIndex = 3;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
@@ -186,8 +188,8 @@
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(978, 376);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Size = new System.Drawing.Size(959, 376);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Import file tọa độ";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -195,7 +197,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(753, 13);
+            this.label13.Location = new System.Drawing.Point(735, 12);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(23, 13);
             this.label13.TabIndex = 11;
@@ -204,7 +206,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(829, 13);
+            this.label12.Location = new System.Drawing.Point(771, 13);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(55, 13);
             this.label12.TabIndex = 10;
@@ -234,7 +236,7 @@
             0,
             0});
             this.nud_LongY.Name = "nud_LongY";
-            this.nud_LongY.Size = new System.Drawing.Size(121, 20);
+            this.nud_LongY.Size = new System.Drawing.Size(98, 20);
             this.nud_LongY.TabIndex = 8;
             // 
             // nud_LongX
@@ -252,13 +254,13 @@
             0,
             0});
             this.nud_LongX.Name = "nud_LongX";
-            this.nud_LongX.Size = new System.Drawing.Size(126, 20);
+            this.nud_LongX.Size = new System.Drawing.Size(103, 20);
             this.nud_LongX.TabIndex = 7;
             this.nud_LongX.ThousandsSeparator = true;
             // 
             // nud_NumY
             // 
-            this.nud_NumY.Location = new System.Drawing.Point(932, 11);
+            this.nud_NumY.Location = new System.Drawing.Point(873, 11);
             this.nud_NumY.Minimum = new decimal(new int[] {
             1,
             0,
@@ -275,7 +277,7 @@
             // 
             // nud_NumX
             // 
-            this.nud_NumX.Location = new System.Drawing.Point(890, 11);
+            this.nud_NumX.Location = new System.Drawing.Point(831, 11);
             this.nud_NumX.Minimum = new decimal(new int[] {
             1,
             0,
@@ -318,8 +320,8 @@
             this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(978, 376);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Size = new System.Drawing.Size(959, 376);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Import file Part";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -359,7 +361,8 @@
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(6, 43);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(966, 327);
+            this.dataGridView2.RowHeadersWidth = 62;
+            this.dataGridView2.Size = new System.Drawing.Size(795, 327);
             this.dataGridView2.TabIndex = 1;
             this.dataGridView2.DataMemberChanged += new System.EventHandler(this.dataGridView2_DataMemberChanged);
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
@@ -374,8 +377,8 @@
             this.tabPage3.Controls.Add(this.groupBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(978, 376);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Size = new System.Drawing.Size(959, 376);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Part infor";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -752,8 +755,8 @@
             this.tabPage4.Controls.Add(this.dataGridView3_ExportLK);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(978, 376);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage4.Size = new System.Drawing.Size(959, 376);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Export Panel Line";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -783,6 +786,7 @@
             this.dataGridView3_ExportLK.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3_ExportLK.Location = new System.Drawing.Point(6, 43);
             this.dataGridView3_ExportLK.Name = "dataGridView3_ExportLK";
+            this.dataGridView3_ExportLK.RowHeadersWidth = 62;
             this.dataGridView3_ExportLK.Size = new System.Drawing.Size(966, 327);
             this.dataGridView3_ExportLK.TabIndex = 7;
             // 
@@ -790,9 +794,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1010, 426);
+            this.ClientSize = new System.Drawing.Size(956, 511);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

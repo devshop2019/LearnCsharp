@@ -20,12 +20,12 @@ namespace WindowsFormsApplication_First
         
         public LinhKienData()
         {
-            Posistion = "NoPos";
+            Posistion = Constant_LK.POS_DEFAULT;
             MidX = "1000mm";
             MidY = "1000mm";
             AngelNew = "NA";
             AngelOld = "NA";
-            Value = "NoVal";
+            Value = Constant_LK.VALUE_DEFAULT;
             ValueOld = "NoValueOld";
             FootPrint = "NoFoot";
         }

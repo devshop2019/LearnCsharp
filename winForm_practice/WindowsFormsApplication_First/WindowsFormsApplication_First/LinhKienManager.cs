@@ -12,6 +12,8 @@ namespace WindowsFormsApplication_First
     public class LinhKienManager
     {
         #region Property
+
+        public LinhKienData markPoint_set { get; set; }
         public LinhKienItem LKListImport { get; set; }
         public LinhKienItem LKListExport { get; set; }
         public PartItem PartListImport { get; set; }
@@ -40,6 +42,14 @@ namespace WindowsFormsApplication_First
             LKListExport = new LinhKienItem();
             LKitems = new LinhKienItem();
             PartListImport = new PartItem();
+            markPoint_set = new LinhKienData();
+        }
+
+        public void setMarkPoint_LKdata()
+        {
+            LinhKienData temData = (LinhKienData)LKListImport.BindingSourceLK.Current;
+            markPoint_set = temData;
+            //markPoint_set.Value = Constant_LK.VALUE_DEFAULT;
         }
 
         public void LoadLinhKienToDataGrid(DataGridView dataView_)
@@ -205,7 +215,8 @@ namespace WindowsFormsApplication_First
 
                 sw.Write(temLK1.GetHeaderStringTo_TXT());
 
-                foreach (LinhKienData temLK in LKListImport.BindingSourceLK)
+                //foreach (LinhKienData temLK in LKListImport.BindingSourceLK)
+                foreach (LinhKienData temLK in dt.BindingSourceLK)
                 {
                     sw.Write(temLK.GetStringTo_TXT());
 
@@ -526,9 +537,11 @@ namespace WindowsFormsApplication_First
                         float temMidY = Convert.ToSingle(temLKData.MidY.Remove(temLKData.MidY.IndexOf("mm")));
 
                         temMidX = temMidX + _longX * cf_x;
-                        temMidY = temMidY + _longY * cf_y;
+                        temMidY = temMidY - _longY * cf_y;  // n30/11/2019  Y phải nhỏ dần
+                        //temMidY = temMidY + _longY * cf_y;
 
-                        temDataExport.Posistion = string.Format("{0}_{1}", temLKData.Posistion, temCount);
+                        temDataExport.Posistion = string.Format("{0}_{1}", temCount, temLKData.Posistion);
+                        //temDataExport.Posistion = string.Format("{0}_{1}", temLKData.Posistion, temCount);
                         //temDataExport.AngelNew = temLKData.AngelNew;
                         //temDataExport.AngelOld = temLKData.AngelOld;
                         //temDataExport.Value = temLKData.Value;
@@ -544,6 +557,113 @@ namespace WindowsFormsApplication_First
             }
             LKListExport.BindingSourceLK.ResetBindings(true);
         }
+
+        public void ExportLinhKienToPanelLine_2(LinhKienItem dt, float _longX, float _longY, int _numberX, int _numberY)
+        {
+            if (dt.BindingSourceLK.Count < 1)
+            {
+                return;
+            }
+
+            if (markPoint_set.Posistion == Constant_LK.POS_DEFAULT)
+            {
+                MessageBox.Show("Vui lòng set Mark point", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            LKListExport.BindingSourceLK.Clear();
+
+            #region Add Markpoint import & Markpoint Array
+
+            for (int cf_y = 0; cf_y < _numberY; cf_y++)
+            {
+                for (int cf_x = 0; cf_x < _numberX; cf_x++)
+                {
+                    if ((cf_x == 0 && cf_y == 0) ||
+                        (cf_x == (_numberX - 1) && cf_y == 0) ||
+                        (cf_x == 0 && cf_y == (_numberY - 1)) ||
+                        (cf_x == (_numberX - 1) && cf_y == (_numberY - 1)))
+                    {
+                        LinhKienData temLKData = markPoint_set;
+
+                        // remote mm
+                        LinhKienData temDataExport = new LinhKienData(temLKData);
+
+                        float temMidX = Convert.ToSingle(temLKData.MidX.Remove(temLKData.MidX.IndexOf("mm")));
+                        float temMidY = Convert.ToSingle(temLKData.MidY.Remove(temLKData.MidY.IndexOf("mm")));
+
+                        temMidX = temMidX + _longX * cf_x;
+                        temMidY = temMidY - _longY * cf_y;  // n30/11/2019  Y phải nhỏ dần
+                                                            //temMidY = temMidY + _longY * cf_y;
+
+                        string temName = "";
+                        if ((cf_x == 0) && (cf_y == 0))
+                        {
+                            temName = string.Format("MarkPoint{0}_{1}", "UP", "L");
+                        }
+                        else if ((cf_x == (_numberX - 1)) && (cf_y == 0))
+                        {
+                            temName = string.Format("MarkPoint{0}_{1}", "UP", "R");
+                        }
+                        else if ((cf_x == 0) && (cf_y == (_numberY - 1)))
+                        {
+                            temName = string.Format("MarkPoint{0}_{1}", "DOWN", "L");
+                        }
+                        else if ((cf_x == (_numberX - 1)) && (cf_y == (_numberY - 1)))
+                        {
+                            temName = string.Format("MarkPoint{0}_{1}", "DOWN", "R");
+                        }
+                        else;
+
+                            temDataExport.Posistion = string.Format("{0}_{1}", temName, temLKData.Posistion);
+                        temDataExport.MidX = string.Format("{0}mm", temMidX);
+                        temDataExport.MidY = string.Format("{0}mm", temMidY);
+                        temDataExport.Value = Constant_LK.VALUE_DEFAULT;
+
+
+                        LKListExport.BindingSourceLK.Add(temDataExport);
+                    }
+
+                    
+                }
+            }
+
+            #endregion Add Markpoint import & Markpoint Array
+
+            int temCount = 0;
+
+            //for (int cf_y = 0; cf_y < _numberY; cf_y++)
+            //{
+            //    for (int cf_x = 0; cf_x < _numberX; cf_x++)
+            //    {
+            //        temCount++;
+
+                    foreach (LinhKienData temLKData in dt.BindingSourceLK)
+                    {
+                        // remote mm
+                        LinhKienData temDataExport = new LinhKienData(temLKData);
+
+                        //float temMidX = Convert.ToSingle(temLKData.MidX.Remove(temLKData.MidX.IndexOf("mm")));
+                        //float temMidY = Convert.ToSingle(temLKData.MidY.Remove(temLKData.MidY.IndexOf("mm")));
+
+                        //temMidX = temMidX + _longX * cf_x;
+                        //temMidY = temMidY - _longY * cf_y;  // n30/11/2019  Y phải nhỏ dần
+                        //temMidY = temMidY + _longY * cf_y;
+
+                        //temDataExport.Posistion = string.Format("{0}_{1}", temCount, temLKData.Posistion);
+                        
+                        //temDataExport.MidX = string.Format("{0}mm", temMidX);
+                        //temDataExport.MidY = string.Format("{0}mm", temMidY);
+
+
+                        LKListExport.BindingSourceLK.Add(temDataExport);
+
+                    }
+            //    }
+            //}
+            LKListExport.BindingSourceLK.ResetBindings(true);
+        }
+
 
         public string ExportLinhKienToKeyWord(LinhKienItem listLK)
         {

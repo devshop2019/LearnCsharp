@@ -39,6 +39,9 @@ namespace WindowsFormsApplication_First
         public static byte FootPrint_Miror = 1;
         public static byte FootPrint_NoMiror = 0;
 
+        public static string POS_DEFAULT = "NoPos";
+        public static string VALUE_DEFAULT = "NoVal";
+
         public static void debug(String format, params object[] args)
         {
             Console.WriteLine(format, args);

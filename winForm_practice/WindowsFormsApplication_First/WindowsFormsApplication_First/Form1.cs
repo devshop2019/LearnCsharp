@@ -124,12 +124,13 @@ namespace WindowsFormsApplication_First
             // Set the data source for the DataGridView.
             dataGridView1.DataSource = source1;
 
-            source1.Sort = "ValueOld ASC";
+            //source1.Sort = "ValueOld ASC";
         }
 
         public Form1()
         {
             InitializeComponent();
+            loadFormKXN();
 
             LKManager = new LinhKienManager();
             dataGridView1.DataSource = LKManager.LKListImport.BindingSourceLK;
@@ -156,6 +157,15 @@ namespace WindowsFormsApplication_First
             var btn_deleteRow = new ToolStripButton() { Text = "Delete LK", AutoSize = true };
             btn_deleteRow.Click += DeleteRowLK;
             contextMenuStrip1.Items.Add(btn_deleteRow);
+
+            var btn_setMarkPoint = new ToolStripButton() { Text = "Set mark point", AutoSize = true };
+            btn_setMarkPoint.Click += SetMarkPoint;
+            contextMenuStrip1.Items.Add(btn_setMarkPoint);
+        }
+
+        private void SetMarkPoint(object sender, EventArgs e)
+        {
+            LKManager.setMarkPoint_LKdata();
         }
 
         private void DeleteRowLK(object sender, EventArgs e)
@@ -246,9 +256,22 @@ namespace WindowsFormsApplication_First
         private void Form1_Load(object sender, EventArgs e)
         {
             //studentBindingSource.DataSource = new List<Student1>();
+            
         }
 
-        
+        void loadFormKXN()
+        {
+            //Binding dataBinding = new Binding("Size", tabControl1, "Size", true, DataSourceUpdateMode.OnPropertyChanged);
+            //this.DataBindings.Add(dataBinding);
+            //Binding dataBinding2 = new Binding("Size", tabControl1, "Size", true, DataSourceUpdateMode.OnPropertyChanged);
+            //dataGridView1.DataBindings.Add(dataBinding2);
+
+            dataGridView1.Size = this.Size;
+            tabControl1.Size = this.Size;
+            dataGridView2.Size = this.Size;
+            dataGridView3_ExportLK.Size = this.Size;
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             #region   Btn Read CSV to DataGrid
@@ -288,7 +311,8 @@ namespace WindowsFormsApplication_First
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    LinhKienDataViewAndAdvancedSort(LKManager.ReadCsvFileToLinhKien(ofd.FileName));
+                    //LinhKienDataViewAndAdvancedSort(LKManager.ReadCsvFileToLinhKien(ofd.FileName));
+                    LKManager.ReadCsvFileToLinhKien(ofd.FileName);
                 }
             }
             #endregion
@@ -660,7 +684,7 @@ namespace WindowsFormsApplication_First
 
         private void btn_UpdatePanelLine_Click(object sender, EventArgs e)
         {
-            LKManager.ExportLinhKienToPanelLine(LKManager.LKListImport, (float)nud_LongX.Value, (float)nud_LongY.Value, (int)nud_NumX.Value, (int)nud_NumY.Value);
+            LKManager.ExportLinhKienToPanelLine_2(LKManager.LKListImport, (float)nud_LongX.Value, (float)nud_LongY.Value, (int)nud_NumX.Value, (int)nud_NumY.Value);
             //string msBoxString = LKManager.ExportLinhKienToKeyWord(LKManager.LKListExport);
             //MessageBox.Show(msBoxString);
         }
@@ -706,6 +730,11 @@ namespace WindowsFormsApplication_First
                 }
                 MessageBox.Show("Đã lưu Data", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            loadFormKXN();
         }
     }
 }
