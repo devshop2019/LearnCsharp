@@ -144,6 +144,22 @@ namespace WindowsFormsApplication_First
             #endregion
 
             setupContextMenu();
+            SetUpLayout();
+        }
+
+        public void SetUpLayout()
+        {
+            this.Width = tabControl1.Width + 20;
+            
+            tabControl1.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            dataGridView2.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            dataGridView2.Width = dataGridView2.Parent.Width - 20;
+            dataGridView2.Height = dataGridView2.Parent.Height - 30;
+
+            dataGridView3_ExportLK.Width =  dataGridView3_ExportLK.Parent.Width - 20;
+            dataGridView3_ExportLK.Height = dataGridView3_ExportLK.Parent.Height - 50;
+            dataGridView3_ExportLK.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
+            Console.WriteLine("Width form: {0}, - {1}", dataGridView3_ExportLK.Parent.Height, dataGridView3_ExportLK.Height);
         }
 
         public void setupContextMenu ()
@@ -172,11 +188,20 @@ namespace WindowsFormsApplication_First
             btn_duplicate.Click += DuplicatePart_function;
             partContextMenu.Items.Add(btn_duplicate);
 
+            var btn_Config_Part = new ToolStripButton() { Text = "Part info", AutoSize = true };
+            btn_Config_Part.Click += PartInfo_function;
+            partContextMenu.Items.Add(btn_Config_Part);
+
             var btn_delete_Part = new ToolStripButton() { Text = "Delete part", AutoSize = true };
             btn_delete_Part.Click += DeletePart_function;
             partContextMenu.Items.Add(btn_delete_Part);
 
             #endregion partContextMenu
+        }
+
+        private void PartInfo_function(object sender, EventArgs e)
+        {
+            tabControl1.SelectedTab = tabPage3;
         }
 
         private void DeletePart_function(object sender, EventArgs e)
@@ -671,6 +696,7 @@ namespace WindowsFormsApplication_First
             ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FootPrintName = txb_newFootPrint.Text;
             ((PartData)LKManager.PartListImport.BindingSourcePart.Current).FootPrintValue = temFootprint.getString();
             //((PartData)LKManager.PartListImport.BindingSourcePart.Current).FoodPrintInfo.Mirror = (byte)(cb_miror.Checked == true ? 1 : 0);
+            tabControl1.SelectedTab = tabPage2;
         }
 
         private void rdio_Eagle_4_Click(object sender, EventArgs e)
