@@ -27,6 +27,56 @@ namespace WindowsFormsApplication_First
             FoodPrintInfo = new FootPrintData();
         }
 
+        public PartData(PartData _data_part_)
+        {
+            FoodPrintInfo = new FootPrintData();
+            FoodPrintInfo.AngeAtFeeder1 = _data_part_.FoodPrintInfo.AngeAtFeeder1;
+            FoodPrintInfo.AngeInLayout = _data_part_.FoodPrintInfo.AngeInLayout;
+            FoodPrintInfo.Height = _data_part_.FoodPrintInfo.Height;
+            FoodPrintInfo.Long = _data_part_.FoodPrintInfo.Long;
+            FoodPrintInfo.Mirror = _data_part_.FoodPrintInfo.Mirror;
+            FoodPrintInfo.Name = _data_part_.FoodPrintInfo.Name;
+            FoodPrintInfo.Width = _data_part_.FoodPrintInfo.Width;
+
+            Part = _data_part_.Part;
+            Feeder = _data_part_.Feeder;
+            PickupHight = _data_part_.PickupHight;
+            PickupSpeed = _data_part_.PickupSpeed;
+            PickupDelay = _data_part_.PickupDelay;
+            PasteHight = _data_part_.PasteHight;
+            PasteSpeed = _data_part_.PasteSpeed;
+            PasteDelay = _data_part_.PasteDelay;
+            Visual = _data_part_.Visual;
+            DeltaAngleAtFeeder1 = _data_part_.DeltaAngleAtFeeder1;
+            FootPrintName = _data_part_.FootPrintName;
+            FootPrintValue = _data_part_.FootPrintValue;
+
+        }
+
+        public void SetPartData(PartData _data_part_)
+        {
+            FoodPrintInfo.AngeAtFeeder1 = _data_part_.FoodPrintInfo.AngeAtFeeder1;
+            FoodPrintInfo.AngeInLayout = _data_part_.FoodPrintInfo.AngeInLayout;
+            FoodPrintInfo.Height = _data_part_.FoodPrintInfo.Height;
+            FoodPrintInfo.Long = _data_part_.FoodPrintInfo.Long;
+            FoodPrintInfo.Mirror = _data_part_.FoodPrintInfo.Mirror;
+            FoodPrintInfo.Name = _data_part_.FoodPrintInfo.Name;
+            FoodPrintInfo.Width = _data_part_.FoodPrintInfo.Width;
+
+            Part = _data_part_.Part;
+            Feeder = _data_part_.Feeder;
+            PickupHight = _data_part_.PickupHight;
+            PickupSpeed = _data_part_.PickupSpeed;
+            PickupDelay = _data_part_.PickupDelay;
+            PasteHight = _data_part_.PasteHight;
+            PasteSpeed = _data_part_.PasteSpeed;
+            PasteDelay = _data_part_.PasteDelay;
+            Visual = _data_part_.Visual;
+            DeltaAngleAtFeeder1 = _data_part_.DeltaAngleAtFeeder1;
+            FootPrintName = _data_part_.FootPrintName;
+            FootPrintValue = _data_part_.FootPrintValue;
+        }
+
         public string GetHeaderStringTo_Csv()
         {
             string SplitStr = ",";

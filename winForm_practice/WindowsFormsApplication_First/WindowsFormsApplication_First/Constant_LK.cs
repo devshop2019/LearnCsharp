@@ -41,6 +41,7 @@ namespace WindowsFormsApplication_First
 
         public static string POS_DEFAULT = "NoPos";
         public static string VALUE_DEFAULT = "NoVal";
+        public static string END_SYMBOL_FOOTPRINT_DEFAULT = "]";
 
         public static void debug(String format, params object[] args)
         {

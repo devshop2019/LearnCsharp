@@ -257,6 +257,13 @@ namespace WindowsFormsApplication_First
             }
         }
 
+        public void Duplicate_Part_Data()
+        {
+            PartData temPartdata = new PartData((PartData)PartListImport.BindingSourcePart.Current);
+            PartListImport.BindingSourcePart.Add(temPartdata);
+            PartListImport.BindingSourcePart.ResetBindings(true);
+        }
+
         public void WritePartItemToCsv(PartItem dt, string strFilePath)
         {
             using (var sw = new StreamWriter(strFilePath))
@@ -406,9 +413,10 @@ namespace WindowsFormsApplication_First
                     }
                 }
             }
+            markPoint_set.Posistion = Constant_LK.POS_DEFAULT; // Reset markPoint_set
 
-            MessageBox.Show(string.Format("Sort status: {0}", LKListImport.BindingSourceLK.SupportsAdvancedSorting));
-            LKListImport.BindingSourceLK.Sort = "ValueOld ASC";
+            //MessageBox.Show(string.Format("Sort status: {0}", LKListImport.BindingSourceLK.SupportsAdvancedSorting));
+            //LKListImport.BindingSourceLK.Sort = "ValueOld ASC";
             return dt;
         }
 
@@ -494,7 +502,9 @@ namespace WindowsFormsApplication_First
                                 }
                                 else if (columns[k].IndexOf(Constant_LK.FootPrintValue) > -1)
                                 {
-                                    temPart.FootPrintValue = temData;
+                                    if (temData.IndexOf(Constant_LK.END_SYMBOL_FOOTPRINT_DEFAULT) == -1)
+                                        temPart.FootPrintValue = temData + "]"; // kxn n12/12/2019
+                                    else temPart.FootPrintValue = temData;
                                     temPart.FoodPrintInfo.getValueFromString(temData);
                                 }
                                 #endregion

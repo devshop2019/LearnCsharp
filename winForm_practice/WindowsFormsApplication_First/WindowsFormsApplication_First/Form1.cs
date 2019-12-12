@@ -161,6 +161,35 @@ namespace WindowsFormsApplication_First
             var btn_setMarkPoint = new ToolStripButton() { Text = "Set mark point", AutoSize = true };
             btn_setMarkPoint.Click += SetMarkPoint;
             contextMenuStrip1.Items.Add(btn_setMarkPoint);
+
+            #region partContextMenu
+            ContextMenuStrip partContextMenu = new ContextMenuStrip();
+            partContextMenu.Width = 900;
+            dataGridView2.ContextMenuStrip = partContextMenu;
+            
+
+            var btn_duplicate = new ToolStripButton() { Text = "Duplicate part", AutoSize = true };
+            btn_duplicate.Click += DuplicatePart_function;
+            partContextMenu.Items.Add(btn_duplicate);
+
+            var btn_delete_Part = new ToolStripButton() { Text = "Duplicate part", AutoSize = true };
+            btn_delete_Part.Click += DeletePart_function;
+            partContextMenu.Items.Add(btn_delete_Part);
+
+            #endregion partContextMenu
+        }
+
+        private void DeletePart_function(object sender, EventArgs e)
+        {
+            LKManager.PartListImport.BindingSourcePart.RemoveCurrent();
+        }
+
+        private void DuplicatePart_function(object sender, EventArgs e)
+        {
+            //PartData temPartdata = new PartData ((PartData)LKManager.PartListImport.BindingSourcePart.Current);
+            //LKManager.PartListImport.BindingSourcePart.Add(temPartdata);
+            //LKManager.PartListImport.BindingSourcePart.ResetBindings(true);
+            LKManager.Duplicate_Part_Data();
         }
 
         private void SetMarkPoint(object sender, EventArgs e)
@@ -266,10 +295,10 @@ namespace WindowsFormsApplication_First
             //Binding dataBinding2 = new Binding("Size", tabControl1, "Size", true, DataSourceUpdateMode.OnPropertyChanged);
             //dataGridView1.DataBindings.Add(dataBinding2);
 
-            dataGridView1.Size = this.Size;
-            tabControl1.Size = this.Size;
-            dataGridView2.Size = this.Size;
-            dataGridView3_ExportLK.Size = this.Size;
+            //dataGridView1.Size = this.Size;
+            //tabControl1.Size = this.Size;
+            //dataGridView2.Size = this.Size;
+            //dataGridView3_ExportLK.Size = this.Size;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -487,7 +516,7 @@ namespace WindowsFormsApplication_First
 
             foreach (PartData pd in LKManager.PartListImport.BindingSourcePart)
             {
-                ComBobox_partName.Items.Add(pd.Part);
+                if(pd.Part != null)ComBobox_partName.Items.Add(pd.Part);
             }
         }
 
@@ -732,9 +761,15 @@ namespace WindowsFormsApplication_First
             }
         }
 
-        private void Form1_Resize(object sender, EventArgs e)
+        //private void Form1_Resize(object sender, EventArgs e)
+        //{
+            
+        //}
+
+        private void Form1_Resize_1(object sender, EventArgs e)
         {
             loadFormKXN();
+            Console.WriteLine("Form 1 resize!!");
         }
     }
 }

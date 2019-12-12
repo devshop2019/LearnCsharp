@@ -29,6 +29,22 @@ namespace WindowsFormsApplication_First
             //temValue += ((UInt64)Long << (8 * 7));
 
 
+            return string.Format("{0}{1}",temValue.ToString(), Constant_LK.END_SYMBOL_FOOTPRINT_DEFAULT);
+        }
+
+        public string getString2()
+        {
+            Int64 temValue = 0;
+            temValue += ((Int64)Width << (8 * 0));
+            temValue += ((Int64)Long << (8 * 1));
+            temValue += ((Int64)Height << (8 * 2));
+            temValue += ((Int64)Mirror << (8 * 3));
+            temValue += ((Int64)AngeInLayout << (8 * 4));
+            temValue += ((Int64)AngeAtFeeder1 << (8 * 5));
+            //temValue += ((UInt64)Long << (8 * 6));
+            //temValue += ((UInt64)Long << (8 * 7));
+
+
             return temValue.ToString();
         }
 
@@ -36,7 +52,15 @@ namespace WindowsFormsApplication_First
         {
             if (inputString_ == "") return;
 
-            Int64 temValue = Convert.ToInt64(inputString_);
+            string temData = inputString_;
+            if (inputString_.IndexOf(Constant_LK.END_SYMBOL_FOOTPRINT_DEFAULT) > -1)
+            {
+                temData = inputString_.Remove(inputString_.IndexOf(Constant_LK.END_SYMBOL_FOOTPRINT_DEFAULT)); // kxn n12/12/2019
+                if (temData == "") temData = "0";
+            }
+
+            Int64 temValue = Convert.ToInt64(temData);
+            //Int64 temValue = Convert.ToInt64(inputString_);
 
             Width = (byte)temValue;
             Long = (byte)(temValue >> (8 * 1));
