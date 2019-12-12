@@ -172,7 +172,7 @@ namespace WindowsFormsApplication_First
             btn_duplicate.Click += DuplicatePart_function;
             partContextMenu.Items.Add(btn_duplicate);
 
-            var btn_delete_Part = new ToolStripButton() { Text = "Duplicate part", AutoSize = true };
+            var btn_delete_Part = new ToolStripButton() { Text = "Delete part", AutoSize = true };
             btn_delete_Part.Click += DeletePart_function;
             partContextMenu.Items.Add(btn_delete_Part);
 
